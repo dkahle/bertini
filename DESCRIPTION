@@ -1,0 +1,17 @@
+Package: bertini
+Title: Bertini in R
+Version: 0.0.0.9000
+Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Description: Tools for working with Bertini.
+Depends: 
+  R (>= 3.4.3),
+  mpoly
+Imports: 
+  stringr,
+  glue 
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+SystemRequirements:
+    Bertini <https://bertini.nd.edu>

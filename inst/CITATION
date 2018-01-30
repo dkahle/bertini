@@ -1,0 +1,11 @@
+citHeader("To cite latter in publications, please use:")
+
+citEntry(entry="Manual",
+  author = "David Kahle",
+  title = "bertini: {Bertini} in {R}",
+  year = "2018",
+  note = "R package version 0.0.1",
+  url = "https://github.com/dkahle/latter",
+  textVersion = "D. Kahle. bertini: Bertini in R. R package version 0.0.1. https://github.com/dkahle/bertini"
+)
+
