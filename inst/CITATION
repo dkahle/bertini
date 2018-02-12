@@ -9,3 +9,11 @@ citEntry(entry="Manual",
   textVersion = "D. Kahle. bertini: Bertini in R. R package version 0.0.1. https://github.com/dkahle/bertini"
 )
 
+citEntry(entry="Misc",
+  author = "Bates, Daniel J. and Hauenstein, Jonathan D. and Sommese, Andrew J. and Wampler, Charles W.",
+  title = "Bertini: Software for Numerical Algebraic Geometry",
+  year = "2013",
+  url = "https://bertini.nd.edu",
+  doi = "dx.doi.org/10.7274/R0H41PB5",
+  textVersion = "Bates, D. J., J. D. Hauenstein, A. J. Sommese, and C. W. Wampler. Bertini: Software for Numerical Algebraic Geometry. Available at bertini.nd.edu with permanent doi: dx.doi.org/10.7274/R0H41PB5"
+)

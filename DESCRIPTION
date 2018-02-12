@@ -1,7 +1,7 @@
 Package: bertini
 Title: Bertini in R
 Version: 0.0.0.9000
-Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9999-1558"))
 Description: Tools for working with Bertini.
 Depends: 
   R (>= 3.4.3),
