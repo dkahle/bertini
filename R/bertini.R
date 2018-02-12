@@ -6,7 +6,6 @@
 #' @param code Bertini code as either a character string or function; see
 #'   examples
 #' @param dir directory to place the files in, without an ending /
-#' @param opts options for bertini
 #' @param quiet show bertini output
 #' @return an object of class bertini
 #' @export bertini
@@ -111,11 +110,11 @@
 #'
 #' }
 #'
-bertini <- function(code, dir = tempdir(), opts = "", quiet = TRUE){
+bertini <- function(code, dir = tempdir(), quiet = TRUE){
 
 
   # make dir to put bertini files in (within the tempdir) timestamped
-  bertini_file_dir <- glue("{dir}/{time_stamp()}")
+  bertini_file_dir <- file.path(dir, time_stamp())
   suppressWarnings(dir.create(bertini_file_dir))
 
 
@@ -131,7 +130,7 @@ bertini <- function(code, dir = tempdir(), opts = "", quiet = TRUE){
     }
 
     # write code file
-    writeLines(code, con = paste(bertini_file_dir, codeFile, sep = "/"))
+    writeLines(code, con = file.path(bertini_file_dir, codeFile))
     invisible(code)
   }
 
@@ -147,8 +146,8 @@ bertini <- function(code, dir = tempdir(), opts = "", quiet = TRUE){
 
   # run bertini
   system2(
-    glue("{get_bertini_path()}/bertini"),
-    paste(opts, glue("{bertini_file_dir}/bertini_code")),
+    file.path(get_bertini_path(), "bertini"),
+    file.path(bertini_file_dir, "bertini_code"),
     stdout = "bertini_out"
   )
 
@@ -162,7 +161,6 @@ bertini <- function(code, dir = tempdir(), opts = "", quiet = TRUE){
   rawOutput <- as.list(vector(length = length(files)))
   names(rawOutput) <- files
   for(k in seq_along(files)) rawOutput[[k]] <- readLines(files[k])
-
 
 
   # convert the raw output into interesting output
@@ -361,9 +359,7 @@ parse_bertini_real_finite_solutions <- function(rawOutput){
   rfSolns <- rfSolns[-length(rfSolns)]
 
   rfSolns <- strsplit(rfSolns, " ")[nchar(rfSolns) > 0]
-  rfSolns <- vapply(rfSolns, function(x) {
-    as.numeric(x[1])
-  }, numeric(1))
+  rfSolns <- vapply(rfSolns, function(x) as.numeric(x[1]), numeric(1))
   rfSolns <- matrix(rfSolns, ncol = p, byrow = TRUE)
   colnames(rfSolns) <- vars
 

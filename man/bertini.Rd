@@ -8,15 +8,13 @@
 \alias{bertini}
 \title{Evaluate Bertini Code}
 \usage{
-bertini(code, dir = tempdir(), opts = "", quiet = TRUE)
+bertini(code, dir = tempdir(), quiet = TRUE)
 }
 \arguments{
 \item{code}{Bertini code as either a character string or function; see
 examples}
 
 \item{dir}{directory to place the files in, without an ending /}
-
-\item{opts}{options for bertini}
 
 \item{quiet}{show bertini output}
 }
