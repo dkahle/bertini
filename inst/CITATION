@@ -10,8 +10,8 @@ citEntry(entry="Manual",
 )
 
 citEntry(entry="Misc",
-  author = "Bates, Daniel J. and Hauenstein, Jonathan D. and Sommese, Andrew J. and Wampler, Charles W.",
-  title = "Bertini: Software for Numerical Algebraic Geometry",
+  author = "Daniel J. Bates and Jonathan D. Hauenstein. and Andrew J. Sommese and Charles W. Wampler",
+  title = "Bertini: {S}oftware for {N}umerical {A}lgebraic {G}eometry",
   year = "2013",
   url = "https://bertini.nd.edu",
   doi = "dx.doi.org/10.7274/R0H41PB5",
