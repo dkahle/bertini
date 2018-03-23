@@ -4,7 +4,7 @@
 
   # find bertini on a Mac or Linux
   if (is.mac() || is.linux()) {
-    unix_search_and_set("bertini", "bertini", "bertini_path")
+    unix_search_and_set("bertini", "bertini_path")
   }
 
   # find bertini on a PC - directs to cloud immediately
@@ -50,7 +50,7 @@ unix_find <- function(exec, where){
 
 
 
-startup_check_for_program <- function(){
+startup_check_for_program <- function() {
 
   if(!is.null(get_bertini_path())){
     psm(glue("  Bertini found in {get_bertini_path()}"))
@@ -58,8 +58,7 @@ startup_check_for_program <- function(){
   }
 
   if(is.null(get_bertini_path())){
-    stop("")
-    psm("  Bertini not found; defaulting to cloud.")
+    psm("  Bertini not found.")
     psm("  Use set_bertini_path(\"/path/to/bertini\") to run bertini locally.")
     return(invisible(FALSE))
   }
@@ -80,7 +79,7 @@ setOption <- function(optionName, value){
 }
 
 
-unix_search_and_set <- function(exec, baseName, optionName){
+unix_search_and_set <- function(exec, optionName){
 
   # grab path and parse
   profile_to_look_for <-
@@ -102,18 +101,14 @@ unix_search_and_set <- function(exec, baseName, optionName){
   )
   dirs_to_check <- stringr::str_split(PATH, ":")[[1]]
 
-  # check for main dir name
-  ndx_with_baseName_dir  <- which(stringr::str_detect(tolower(dirs_to_check), baseName))
-  baseName_path <- dirs_to_check[ndx_with_baseName_dir]
-
   # seek and find
-  for(path in dirs_to_check){
-    found_path <- unix_find(exec, path)
-    if(!is.na(found_path)) break
+  for (dir in dirs_to_check) {
+    found_path <- unix_find(exec, dir)
+    if(length(found_path) > 0) break
   }
 
   # break in a failure
-  if(is.na(found_path)) return(invisible(FALSE))
+  if(length(found_path) == 0) return(invisible(FALSE))
 
   # set option and exit
   set_bertini_option(bertini_path = dirname(found_path))
