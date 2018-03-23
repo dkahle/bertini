@@ -81,7 +81,7 @@ print.bertini <- function(x, digits = 3, ...){
   # count up real solutions
   if(nRSolns > 0){
     rfSolnsString <- apply(rfSolns, 1, paste, collapse = " ")
-    rfSolnsTab <-table(unname(rfSolnsString))
+    rfSolnsTab <- table(unname(rfSolnsString))
     nDistinctRSolns <- length(rfSolnsTab)
   } else {
     rfSolnsString <- character(0)
@@ -93,11 +93,13 @@ print.bertini <- function(x, digits = 3, ...){
   if(nDistinctSolns == 1){
     rc <- ifelse(nRSolns > 0, "real", "complex")
     sing <- ifelse(nNsSolns > 0, "nonsinguar", "singular")
-    cat(paste0("One ", rc, ", ", sing, " solution ", tuple, " found."))
+    cat(glue("One {rc}, {sing} solution {tuple} found."))
   } else {
-    cat(paste0(nDistinctSolns, " solutions ", tuple, " found.  (",
-      nDistinctRSolns, " real, ", nDistinctSolns - nDistinctRSolns, " complex; ",
-      nDistinctNsSolns, " nonsingular, ", nDistinctSSolns, " singular.)"))
+    cat(glue(
+      "{nDistinctSolns} solutions {tuple} found. ",
+      "({nDistinctRSolns} real, {nDistinctSolns - nDistinctRSolns} complex)"
+      # "{nDistinctNsSolns} nonsingular, {nDistinctSSolns} singular."
+    ))
   }
   cat("\n")
 
@@ -113,27 +115,23 @@ print.bertini <- function(x, digits = 3, ...){
   if(all(printSolns == round(printSolns))){
     formattedSolns <- apply(format(printSolns), 1, function(v){
       s <- paste0("(", paste(v, collapse = ","), ")")
-      s <- str_replace_all(s, "0\\+0i", "0")
-      s <- str_replace_all(s, "0\\-0i", "0")
+      s <- str_replace_all(s, "0[-+]0i", "0")
       s <- str_replace_all(s, "0\\+", "")
       s <- str_replace_all(s, "0\\-", "-")
-      s <- str_replace_all(s, "\\+0i", "")
-      s <- str_replace_all(s, "\\-0i", "")
+      s <- str_replace_all(s, "[-+]0i", "")
       s <- str_replace_all(s, "1i", "i")
       s
     })
   } else {
     formattedSolns <- apply(format(printSolns), 1, function(v){
       s <- paste0("(", paste(v, collapse = ","), ")")
-      s <- str_replace_all(s, "0.000\\+0.000i", "0")
-      s <- str_replace_all(s, "0.000\\-0.000i", "0")
-      s <- str_replace_all(s, "0.000\\+", "")
-      s <- str_replace_all(s, "0.000\\-", "-")
-      s <- str_replace_all(s, "\\+0.000i", "")
-      s <- str_replace_all(s, "\\-0.000i", "")
-      s <- str_replace_all(s, "1.000i", "i")
-      s <- str_replace_all(s, "\\+0i", "")
-      s <- str_replace_all(s, "\\-0i", "")
+      s <- str_replace_all(s, "0.0+[-+]0.0+i", "0")
+      s <- str_replace_all(s, "0.0+\\+", "")
+      s <- str_replace_all(s, "0.0+\\-", "-")
+      s <- str_replace_all(s, "\\+0.0+i", "")
+      s <- str_replace_all(s, "\\-0.0+i", "")
+      s <- str_replace_all(s, "1.0+i", "i")
+      s <- str_replace_all(s, "[-+]0i", "")
       s
     })
   }
@@ -142,10 +140,10 @@ print.bertini <- function(x, digits = 3, ...){
 
   for(k in 1:nrow(uniqueSolns)){
     if(uniqueSolns$mult[k] == 1){
-      regu <- ifelse(uniqueSolns[k,"regularity"] == "nonsingular", "(R)", "(S)")
+      regu <- `if`(uniqueSolns[k,"regularity"] == "nonsingular", "(R)", "(S)")
       cat( paste("   ", formattedSolns[k], regu))
     } else {
-      regu <- ifelse(uniqueSolns[k,"regularity"] == "nonsingular", "(R, ", "(S, ")
+      regu <- `if`(uniqueSolns[k,"regularity"] == "nonsingular", "(R, ", "(S, ")
       cat( paste0("    ", formattedSolns[k], " ", regu, uniqueSolns$mult[k], ")"))
     }
     cat("\n")
