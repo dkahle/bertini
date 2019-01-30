@@ -14,6 +14,6 @@ citEntry(entry="Misc",
   title = "Bertini: {S}oftware for {N}umerical {A}lgebraic {G}eometry",
   year = "2013",
   url = "https://bertini.nd.edu",
-  doi = "dx.doi.org/10.7274/R0H41PB5",
+  doi = "10.7274/R0H41PB5",
   textVersion = "Bates, D. J., J. D. Hauenstein, A. J. Sommese, and C. W. Wampler. Bertini: Software for Numerical Algebraic Geometry. Available at bertini.nd.edu with permanent doi: dx.doi.org/10.7274/R0H41PB5"
 )

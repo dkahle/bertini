@@ -11,7 +11,7 @@
 #' @export bertini
 #' @examples
 #'
-#' \dontrun{ requires bertini
+#' \dontrun{ requires Bertini
 #'
 #' # where does the circle intersect the line y = x?
 #' code <- "
@@ -26,9 +26,8 @@
 #' END;
 #' "
 #' bertini(code)
-#'
 #' c(sqrt(2)/2, sqrt(2)/2)
-#'
+#' str(bertini(code), 1L, give.attr = FALSE)
 #'
 #'
 #'
@@ -414,10 +413,7 @@ parse_bertini_raw_solutions <- function(rawOutput){
 parse_bertini_midpath_data <- function(rawOutput){
 
   # check for no finite solutions
-  if(
-    length(rawOutput$midpath_data) == 1 &&
-      rawOutput$midpath_data == ""
-  ) return(FALSE)
+  if( length(rawOutput$midpath_data) == 1 && rawOutput$midpath_data == "" ) return(FALSE)
 
   # get variables
   vars <- str_replace(rawOutput$main_data[2], "Variables:  ", "")

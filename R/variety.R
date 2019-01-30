@@ -6,13 +6,13 @@
 #'
 #' @param mpolyList Bertini code as either a character string or function; see
 #'   examples
-#' @param varOrder variable order (see examples)
+#' @param var_order variable order (see examples)
 #' @param ... stuff to pass to bertini
 #' @return an object of class bertini
 #' @export
 #' @examples
 #'
-#' \dontrun{ requires bertini
+#' \dontrun{ requires Bertini
 #'
 #'
 #' polys <- mp(c(
@@ -70,7 +70,7 @@
 #'
 #' }
 #'
-variety <- function(mpolyList, varOrder, ...){
+variety <- function(mpolyList, var_order, ...){
 
   if(is.character(mpolyList)) mpolyList <- mp(mpolyList)
   if(is.mpoly(mpolyList)) mpolyList <- structure(list(mpolyList), class = "mpolyList")
@@ -80,12 +80,12 @@ variety <- function(mpolyList, varOrder, ...){
   # sort out variables
   vars <- vars(mpolyList)
 
-  if(!missing(varOrder) && !all(sort(vars) == sort(varOrder))) stop(
+  if(!missing(var_order) && !all(sort(vars) == sort(var_order))) stop(
     "If varOrder is provided, it must contain all of the variables.",
     call. = FALSE
   )
 
-  if(!missing(varOrder)) vars <- varOrder
+  if(!missing(var_order)) vars <- var_order
 
 
   # format code

@@ -25,7 +25,7 @@ set of multivariate polynomials).
 }
 \examples{
 
-\dontrun{ requires bertini
+\dontrun{ requires Bertini
 
 # unconstrained optimization of polynomial functions is available
 poly_optim("x^2")

@@ -12,7 +12,7 @@
 #' @seealso \code{\link{variety}}, \code{\link{bertini}}
 #' @examples
 #'
-#' \dontrun{ requires bertini
+#' \dontrun{ requires Bertini
 #'
 #' # it can solve linear systems
 #' # (here where the line y = x intersects y = 2 - x)
@@ -51,14 +51,14 @@
 #'
 #'
 #'
-#'
+#' # (known priting issue)
 #' # example from Riccomagno (2008), p. 399
-#' poly_solve(c(
-#'   "x (x - 2) (x - 4) (x - 3)",
-#'   "(y - 4) (y - 2) y",
-#'   "(y - 2) (x + y - 4)",
-#'   "(x - 3) (x + y - 4)"
-#' ))
+#' # poly_solve(c(
+#' #   "x (x - 2) (x - 4) (x - 3)",
+#' #   "(y - 4) (y - 2) y",
+#' #   "(y - 2) (x + y - 4)",
+#' #   "(x - 3) (x + y - 4)"
+#' # ))
 #'
 #' }
 #'

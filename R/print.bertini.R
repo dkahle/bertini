@@ -24,16 +24,25 @@ print.bertini <- function(x, digits = 3, ...){
   stopifnot(is.bertini(x))
 
   ## get variables
-  vars <- str_replace(x$main_data[2], "Variables:  ", "")
-  vars <- strsplit(vars, " ")[[1]]
-  tuple <- paste0("(", paste(vars, collapse = ","), ")")
+  vars <- x %>%
+    pluck("main_data") %>% str_extract_all("(?<=Variables:  ).+") %>%
+    flatten_chr() %>% str_split(" ") %>% pluck(1L)
+
+  tuple <- glue("({str_c(vars, collapse = ',')})")
+
   p <- length(vars)
 
   ## determine number of solutions and kinds
-  nFSolns <- nrow(x$finite_solutions); if(is.null(nFSolns)) nFSolns <- 0
-  nNsSolns <- nrow(x$nonsingular_solutions); if(is.null(nNsSolns)) nNsSolns <- 0
-  nSSolns <- nrow(x$singular_solutions); if(is.null(nSSolns)) nSSolns <- 0
-  nRSolns <- nrow(x$real_finite_solutions); if(is.null(nRSolns)) nRSolns <- 0
+  nFSolns  <- nrow(x$finite_solutions);      if(is.null(nFSolns))  nFSolns <- 0L
+  nNsSolns <- nrow(x$nonsingular_solutions); if(is.null(nNsSolns)) nNsSolns <- 0L
+  nSSolns  <- nrow(x$singular_solutions);    if(is.null(nSSolns))  nSSolns <- 0L
+  nRSolns  <- nrow(x$real_finite_solutions); if(is.null(nRSolns))  nRSolns <- 0L
+
+  ## print positive dimensional solution
+  if (all(c(nFSolns, nNsSolns, nSSolns, nRSolns) == 0L)) {
+    message("Positive dimensional solution; print method not yet implemented.")
+    return(invisible())
+  }
 
   ## round
   fSolns <- round(x$finite_solutions, digits = digits)
@@ -140,10 +149,10 @@ print.bertini <- function(x, digits = 3, ...){
 
   for(k in 1:nrow(uniqueSolns)){
     if(uniqueSolns$mult[k] == 1){
-      regu <- `if`(uniqueSolns[k,"regularity"] == "nonsingular", "(R)", "(S)")
+      regu <- if(uniqueSolns[k,"regularity"] == "nonsingular") "(R)" else "(S)"
       cat( paste("   ", formattedSolns[k], regu))
     } else {
-      regu <- `if`(uniqueSolns[k,"regularity"] == "nonsingular", "(R, ", "(S, ")
+      regu <- if(uniqueSolns[k,"regularity"] == "nonsingular") "(R, " else "(S, "
       cat( paste0("    ", formattedSolns[k], " ", regu, uniqueSolns$mult[k], ")"))
     }
     cat("\n")

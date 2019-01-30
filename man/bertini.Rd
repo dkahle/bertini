@@ -5,7 +5,6 @@
 \alias{bertini}
 \alias{package-bertini}
 \alias{bertini-package}
-\alias{bertini}
 \title{Evaluate Bertini Code}
 \usage{
 bertini(code, dir = tempdir(), quiet = TRUE)
@@ -27,7 +26,7 @@ and bring the output back into R.
 }
 \examples{
 
-\dontrun{ requires bertini
+\dontrun{ requires Bertini
 
 # where does the circle intersect the line y = x?
 code <- "
@@ -42,9 +41,8 @@ g = y - x;
 END;
 "
 bertini(code)
-
 c(sqrt(2)/2, sqrt(2)/2)
-
+str(bertini(code), 1L, give.attr = FALSE)
 
 
 

@@ -16,3 +16,8 @@ time_stamp <- function(){
     "_"
   )
 }
+
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`

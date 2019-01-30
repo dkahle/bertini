@@ -4,13 +4,13 @@
 \alias{variety}
 \title{Compute a Variety}
 \usage{
-variety(mpolyList, varOrder, ...)
+variety(mpolyList, var_order, ...)
 }
 \arguments{
 \item{mpolyList}{Bertini code as either a character string or function; see
 examples}
 
-\item{varOrder}{variable order (see examples)}
+\item{var_order}{variable order (see examples)}
 
 \item{...}{stuff to pass to bertini}
 }
@@ -24,7 +24,7 @@ points at which those polynomials are (simultaneously) equal to 0.
 }
 \examples{
 
-\dontrun{ requires bertini
+\dontrun{ requires Bertini
 
 
 polys <- mp(c(
