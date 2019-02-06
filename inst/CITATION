@@ -6,7 +6,7 @@ citEntry(entry="Manual",
   year = "2018",
   note = "R package version 0.1.0",
   url = "https://github.com/dkahle/bertini",
-  textVersion = "D. Kahle. bertini: Bertini in R. R package version 0.0.1. https://github.com/dkahle/bertini"
+  textVersion = "D. Kahle. bertini: Bertini in R. R package version 0.1.0. https://github.com/dkahle/bertini"
 )
 
 citEntry(entry="Misc",
