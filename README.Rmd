@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/bertini)](https://cran.r-project.org/package=bertini)
 [![Travis build status](https://travis-ci.org/dkahle/bertini.svg?branch=master)](https://travis-ci.org/dkahle/bertini)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dkahle/bertini?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/bertini)
 <!-- badges: end -->
 
 __bertini__ is an R package that provides methods and data structures for [numerical algebraic geometry](https://en.wikipedia.org/wiki/Numerical_algebraic_geometry), the numerical solution to (nonlinear) systems of polynomial equations using homotopy continuation.

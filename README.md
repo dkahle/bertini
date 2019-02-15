@@ -9,6 +9,8 @@ bertini
 status](https://www.r-pkg.org/badges/version/bertini)](https://cran.r-project.org/package=bertini)
 [![Travis build
 status](https://travis-ci.org/dkahle/bertini.svg?branch=master)](https://travis-ci.org/dkahle/bertini)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/dkahle/bertini?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/bertini)
 <!-- badges: end -->
 
 **bertini** is an R package that provides methods and data structures
