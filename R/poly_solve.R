@@ -64,6 +64,10 @@
 #'
 poly_solve <- function(lhs, rhs, var_order, ...){
 
+  # this should use mpoly::eq_mp in the next version of bertini
+  # that function is in mpoly_1_1_1; mpoly_1_1_0 is currently (02/24/19) on
+  # cran. the first release of bertini 0.0.1 will depend on mpoly_1_1_0
+
   if(missing(rhs)){
 
     if(is.character(lhs)){
