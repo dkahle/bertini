@@ -76,5 +76,5 @@ out$real_finite_solutions
 
 }
 \seealso{
-\code{\link{variety}}, \code{\link{bertini}}
+\code{\link[=variety]{variety()}}, \code{\link[=bertini]{bertini()}}
 }

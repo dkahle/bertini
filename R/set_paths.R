@@ -1,7 +1,7 @@
 #' Set path to Bertini (bertini)
 #'
 #' This function sets the path to external programs either by (1) passing it a
-#' character string or (2) using \code{\link{file.choose}}.
+#' character string or (2) using [file.choose()].
 #'
 #' When bertini is loaded it attempts to find bertini.  How it looks depends on
 #' your operating system.

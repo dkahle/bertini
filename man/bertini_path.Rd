@@ -24,12 +24,12 @@ get_bertini_port()
 }
 \value{
 An invisible character string, the path found.  More importantly, the
-  function has the side effect of setting the global bertini option
-  "bertini_path"
+function has the side effect of setting the global bertini option
+"bertini_path"
 }
 \description{
 This function sets the path to external programs either by (1) passing it a
-character string or (2) using \code{\link{file.choose}}.
+character string or (2) using \code{\link[=file.choose]{file.choose()}}.
 }
 \details{
 When bertini is loaded it attempts to find bertini.  How it looks depends on

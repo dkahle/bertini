@@ -9,7 +9,7 @@
 #' @param ... stuff to pass to bertini
 #' @return an object of class bertini
 #' @export poly_solve
-#' @seealso \code{\link{variety}}, \code{\link{bertini}}
+#' @seealso [variety()], [bertini()]
 #' @examples
 #'
 #' \dontrun{ requires Bertini
