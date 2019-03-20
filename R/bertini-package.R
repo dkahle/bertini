@@ -1,3 +1,8 @@
+#' R Interface to Bertini
+#'
+#' Back-end connections to Bertini (\url{https://bertini.nd.edu}) executables
+#' and front-end tools facilitating its use in the R ecosystem.
+#'
 #' @docType package
 #' @name bertini
 #' @aliases bertini package-bertini

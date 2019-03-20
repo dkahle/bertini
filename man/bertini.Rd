@@ -5,7 +5,7 @@
 \alias{bertini}
 \alias{package-bertini}
 \alias{bertini-package}
-\title{Evaluate Bertini Code}
+\title{R Interface to Bertini}
 \usage{
 bertini(code, dir = tempdir(), quiet = TRUE)
 }
@@ -21,6 +21,9 @@ examples}
 an object of class bertini
 }
 \description{
+Back-end connections to Bertini (\url{https://bertini.nd.edu}) executables
+and front-end tools facilitating its use in the R ecosystem.
+
 Write a Bertini file, evaluate it through a back-end connection to Bertini,
 and bring the output back into R.
 }
