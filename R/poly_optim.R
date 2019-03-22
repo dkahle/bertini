@@ -6,7 +6,7 @@
 #'
 #' @param objective the objective polynomial (as a character or mpoly)
 #' @param constraints (as a character or mpoly/mpolyList)
-#' @param var_order variable order (see examples)
+#' @param varorder variable order (see examples)
 #' @param ... stuff to pass to bertini
 #' @return an object of class bertini
 #' @export poly_optim
@@ -53,7 +53,7 @@
 #'
 #' }
 #'
-poly_optim <- function(objective, constraints, var_order, ...){
+poly_optim <- function(objective, constraints, varorder, ...){
 
   optimizationType <- "unconstrained"
 
@@ -100,12 +100,12 @@ poly_optim <- function(objective, constraints, var_order, ...){
   nLagrangeMults <- length(lams)
   vars <- c(objectiveVars, lams)
 
-  if(!missing(var_order) &&
-      !all(sort(objectiveVars) == sort(var_order))
+  if(!missing(varorder) &&
+      !all(sort(objectiveVars) == sort(varorder))
   ){
-    stop("if var_order is provided, it must contain all of the variables.", call. = FALSE    )
+    stop("if varorder is provided, it must contain all of the variables.", call. = FALSE    )
   }
-  if(!missing(var_order)) vars <- var_order
+  if(!missing(varorder)) vars <- varorder
 
   deriv.mpoly <- get("deriv.mpoly", envir = asNamespace("mpoly"))
   if(optimizationType == "unconstrained") {
@@ -115,11 +115,11 @@ poly_optim <- function(objective, constraints, var_order, ...){
     grad <- deriv.mpoly(lagrangian, var = vars)
   }
 
-  out <- poly_solve(grad, var_order = vars)
+  out <- poly_solve(grad, varorder = vars)
 
   # add optim related stuff to the output
   out$variables <- list(vars = objectiveVars, lams = lams)
-  f <- suppressMessages(as.function(objective, var_order = objectiveVars))
+  f <- suppressMessages(as.function(objective, varorder = objectiveVars))
   real_optima <- as.data.frame(out$real_finite_solutions)
   real_optima$value <- apply(real_optima[,1:nVars,drop=FALSE], 1, f)
   real_optima <- real_optima[order(real_optima$value, decreasing = TRUE),]

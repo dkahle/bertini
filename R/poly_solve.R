@@ -5,7 +5,7 @@
 #'
 #' @param lhs a mpolyList or character vector of left hand sides
 #' @param rhs a mpolyList or character vector of right hand sides
-#' @param var_order variable order (see examples)
+#' @param varorder variable order (see examples)
 #' @param ... stuff to pass to bertini
 #' @return an object of class bertini
 #' @export poly_solve
@@ -23,15 +23,15 @@
 #'
 #' # perhaps an easier specification is equations themselves
 #' # with either the " = " or " == " specifications
-#' # var_order is used to order the solutions returned
-#' poly_solve(c("y = x^2", "y = 2 - x^2"), var_order = c("x", "y"))
-#' poly_solve(c("y == x^2", "y == 2 - x^2"), var_order = c("x", "y"))
+#' # varorder is used to order the solutions returned
+#' poly_solve(c("y = x^2", "y = 2 - x^2"), varorder = c("x", "y"))
+#' poly_solve(c("y == x^2", "y == 2 - x^2"), varorder = c("x", "y"))
 #'
 #'
 #' # mpoly objects can be given instead of character strings
 #' lhs <- mp(c("y - (2 - x)", "x y"))
 #' rhs <- mp(c("0","0"))
-#' poly_solve(lhs, rhs, var_order = c("x", "y"))
+#' poly_solve(lhs, rhs, varorder = c("x", "y"))
 #'
 #' # if no default right hand side is given, and no "=" or "==" is found,
 #' # rhs is taken to be 0's.
@@ -62,7 +62,7 @@
 #'
 #' }
 #'
-poly_solve <- function(lhs, rhs, var_order, ...){
+poly_solve <- function(lhs, rhs, varorder, ...){
 
   # this should use mpoly::eq_mp in the next version of bertini
   # that function is in mpoly_1_1_1; mpoly_1_1_0 is currently (02/24/19) on
@@ -109,11 +109,11 @@ poly_solve <- function(lhs, rhs, var_order, ...){
   # sort out variables
   vars <- vars(gens)
 
-  if(!missing(var_order) && !all(sort(vars) == sort(var_order))) stop(
-    "If var_order is provided, it must contain all of the variables.",
+  if(!missing(varorder) && !all(sort(vars) == sort(varorder))) stop(
+    "If varorder is provided, it must contain all of the variables.",
     call. = FALSE
   )
-  if(!missing(var_order)) vars <- var_order
+  if(!missing(varorder)) vars <- varorder
 
 
   # format code
