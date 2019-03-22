@@ -28,7 +28,6 @@ and bertini recognizes its path.*
 library("bertini")
 # Loading required package: mpoly
 #   Please cite bertini! See citation("bertini") for details.
-#   Bertini found in /usr/local/bin
 ```
 
 Basic usage
@@ -47,6 +46,22 @@ g = y - x;
 END;
 "
 bertini(code)
+# 2 solutions (x,y) found. (2 real, 0 complex)
+#     (-0.707,-0.707) (R)
+#     ( 0.707, 0.707) (R)
+```
+
+Solving zero-dimensional systems of polynomial equations
+--------------------------------------------------------
+
+`poly_solve()` is the basic workhorse for solving systems of polynomial
+equations. For example, if we want to solve the system
+*y* = *x*
+*x*<sup>2</sup> + *y*<sup>2</sup> = 1
+we can use:
+
+``` r
+poly_solve(c("y = x", "x^2 + y^2 = 1"), varorder = c("x", "y"))
 # 2 solutions (x,y) found. (2 real, 0 complex)
 #     (-0.707,-0.707) (R)
 #     ( 0.707, 0.707) (R)

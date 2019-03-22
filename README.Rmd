@@ -56,6 +56,20 @@ bertini(code)
 
 
 
+## Solving zero-dimensional systems of polynomial equations
+
+`poly_solve()` is the basic workhorse for solving systems of polynomial equations. For example, if we want to solve the system
+$$y = x$$
+$$x^{2} + y^{2} = 1$$
+we can use:
+
+```{r poly_solve}
+poly_solve(c("y = x", "x^2 + y^2 = 1"), varorder = c("x", "y"))
+```
+
+
+
+
 
 
 
