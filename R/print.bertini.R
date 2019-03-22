@@ -9,7 +9,8 @@
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples
-#' \dontrun{
+#'
+#' if (has_bertini()) {
 #'
 #' # see ?bertini
 #'

@@ -12,7 +12,7 @@
 #' @seealso [variety()], [bertini()]
 #' @examples
 #'
-#' \dontrun{ requires Bertini
+#' if (has_bertini()) {
 #'
 #' # it can solve linear systems
 #' # (here where the line y = x intersects y = 2 - x)

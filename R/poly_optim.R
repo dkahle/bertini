@@ -12,7 +12,7 @@
 #' @export poly_optim
 #' @examples
 #'
-#' \dontrun{ requires Bertini
+#' if (has_bertini()) {
 #'
 #' # unconstrained optimization of polynomial functions is available
 #' poly_optim("x^2")

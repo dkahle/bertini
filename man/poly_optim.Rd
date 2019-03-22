@@ -4,14 +4,14 @@
 \alias{poly_optim}
 \title{Polynomial Optimization}
 \usage{
-poly_optim(objective, constraints, var_order, ...)
+poly_optim(objective, constraints, varorder, ...)
 }
 \arguments{
 \item{objective}{the objective polynomial (as a character or mpoly)}
 
 \item{constraints}{(as a character or mpoly/mpolyList)}
 
-\item{var_order}{variable order (see examples)}
+\item{varorder}{variable order (see examples)}
 
 \item{...}{stuff to pass to bertini}
 }
@@ -25,7 +25,7 @@ set of multivariate polynomials).
 }
 \examples{
 
-\dontrun{ requires Bertini
+if (has_bertini()) {
 
 # unconstrained optimization of polynomial functions is available
 poly_optim("x^2")

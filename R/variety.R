@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #'
-#' \dontrun{ requires Bertini
+#' if (has_bertini()) {
 #'
 #'
 #' polys <- mp(c(

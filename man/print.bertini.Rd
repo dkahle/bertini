@@ -20,7 +20,8 @@ Invisible string of the printed object.
 Pretty printing of Bertini output.
 }
 \examples{
-\dontrun{
+
+if (has_bertini()) {
 
 # see ?bertini
 

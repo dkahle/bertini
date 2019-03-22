@@ -4,14 +4,14 @@
 \alias{poly_solve}
 \title{Solve a System of Polynomial Equations}
 \usage{
-poly_solve(lhs, rhs, var_order, ...)
+poly_solve(lhs, rhs, varorder, ...)
 }
 \arguments{
 \item{lhs}{a mpolyList or character vector of left hand sides}
 
 \item{rhs}{a mpolyList or character vector of right hand sides}
 
-\item{var_order}{variable order (see examples)}
+\item{varorder}{variable order (see examples)}
 
 \item{...}{stuff to pass to bertini}
 }
@@ -24,7 +24,7 @@ of several ways.
 }
 \examples{
 
-\dontrun{ requires Bertini
+if (has_bertini()) {
 
 # it can solve linear systems
 # (here where the line y = x intersects y = 2 - x)
@@ -35,15 +35,15 @@ poly_solve(c("y", "y"), c("x^2", "2 - x^2"), c("x", "y"))
 
 # perhaps an easier specification is equations themselves
 # with either the " = " or " == " specifications
-# var_order is used to order the solutions returned
-poly_solve(c("y = x^2", "y = 2 - x^2"), var_order = c("x", "y"))
-poly_solve(c("y == x^2", "y == 2 - x^2"), var_order = c("x", "y"))
+# varorder is used to order the solutions returned
+poly_solve(c("y = x^2", "y = 2 - x^2"), varorder = c("x", "y"))
+poly_solve(c("y == x^2", "y == 2 - x^2"), varorder = c("x", "y"))
 
 
 # mpoly objects can be given instead of character strings
 lhs <- mp(c("y - (2 - x)", "x y"))
 rhs <- mp(c("0","0"))
-poly_solve(lhs, rhs, var_order = c("x", "y"))
+poly_solve(lhs, rhs, varorder = c("x", "y"))
 
 # if no default right hand side is given, and no "=" or "==" is found,
 # rhs is taken to be 0's.
