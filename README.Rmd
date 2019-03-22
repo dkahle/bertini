@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 __bertini__ is an R package that provides methods and data structures for [numerical algebraic geometry](https://en.wikipedia.org/wiki/Numerical_algebraic_geometry), the numerical solution to (nonlinear) systems of polynomial equations using homotopy continuation.
 
 
-It is currently being developed.
+It is still experimental, but the core functionality in the zero-dimensional case is quite stable.
 
 
 _Note: the following assumes you have [Bertini](https://bertini.nd.edu) and bertini recognizes its path._
@@ -58,16 +58,22 @@ bertini(code)
 
 ## Solving zero-dimensional systems of polynomial equations
 
-`poly_solve()` is the basic workhorse for solving systems of polynomial equations. For example, if we want to solve the system
-$$y = x$$
-$$x^{2} + y^{2} = 1$$
-we can use:
+`poly_solve()` is the basic workhorse for solving systems of polynomial equations. For example, if we want to solve the system $y = x$ and $x^{2} + y^{2} = 1$, which corresponds geometrically to the points where the identity line intersects the unit circle, we can use:
 
-```{r poly_solve}
+```{r poly-solve}
 poly_solve(c("y = x", "x^2 + y^2 = 1"), varorder = c("x", "y"))
 ```
 
 
+
+
+## Polynomial optimization over compact varieties
+
+`poly_optim()` can be used to find the critical points of polynomials over varieties.  For example, if we want to find the maximum value of the function $f(x,y) = x + y$ over the unit circle:
+
+```{r poly-optim}
+poly_optim("x + y", "x^2 + y^2 = 1")
+```
 
 
 

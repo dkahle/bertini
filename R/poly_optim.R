@@ -55,11 +55,11 @@
 #'
 poly_optim <- function(objective, constraints, varorder, ...){
 
-  optimizationType <- "unconstrained"
+  opt_type <- "unconstrained"
 
   if(!missing(constraints)){
 
-    optimizationType <- "constrained"
+    opt_type <- "constrained"
 
     if(is.character(constraints)){
       if(all(str_detect(constraints, "=="))){
@@ -108,9 +108,9 @@ poly_optim <- function(objective, constraints, varorder, ...){
   if(!missing(varorder)) vars <- varorder
 
   deriv.mpoly <- get("deriv.mpoly", envir = asNamespace("mpoly"))
-  if(optimizationType == "unconstrained") {
+  if(opt_type == "unconstrained") {
     grad <- deriv.mpoly(objective, var = vars)
-  } else if(optimizationType == "constrained"){
+  } else if(opt_type == "constrained"){
     lagrangian <- objective + Reduce("+", lagrangeConstraints)
     grad <- deriv.mpoly(lagrangian, var = vars)
   }
@@ -126,7 +126,7 @@ poly_optim <- function(objective, constraints, varorder, ...){
   real_optima$optima <- ""
   real_optima$optima[which.max(real_optima$value)] <- "global max"
   real_optima$optima[which.min(real_optima$value)] <- "global min"
-  if(optimizationType == "unconstrained") real_optima$optima <- ""
+  if(opt_type == "unconstrained") real_optima$optima <- ""
   out$real_optima <- real_optima
 
   class(out) <- c("poly_optim", "bertini")
