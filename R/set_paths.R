@@ -1,90 +1,85 @@
-#' Set path to Bertini (bertini)
+#' Set path to bertini
 #'
-#' This function sets the path to external programs either by (1) passing it a
-#' character string or (2) using [file.choose()].
+#' These are helper functions that deal with pathing to bertini and asking if it
+#' is present. When the bertini package is loaded it attempts to find the
+#' bertini executable by looking for an environment variable indicating where it
+#' is, i.e. its path as specified in your .Renviron file.
 #'
-#' When bertini is loaded it attempts to find bertini.  How it looks depends on
-#' your operating system.
+#' For easiest use, you'll want to specify the path the bertini executable in
+#' your ~/.Renviron file. It should look something like
 #'
-#' If you're using a Mac or Linux machine, it looks based on your system's path.
-#' Unfortunately, R changes the system path in such a way that the path that R
-#' sees is not the same as the path that you'd see if you were working in the
-#' terminal. (You can open the Terminal app on a Mac by going to
-#' /Applications/Utilities/Terminal.)  Consequently, bertini tries to guess the
-#' file in which your path is set.  To do so, it first checks if your home
-#' directory (type echo ~/ in the terminal to figure out which directory this is
-#' if you don't know) for the file named .bash_profile.  If this file is
-#' present, it runs it and then checks your system's path variable (echo $PATH).
-#' If it's not present, it does the same for .bashrc and then .profile. In any
-#' case, once it has its best guess at your path, it looks for "bertini".
+#' \code{BERTINI=/Applications/latte/bin}
 #'
-#' On Windows, bertini just defaults to the cloud implementation. Local bertini
-#' instances are not currently supported on Windows.
+#' You can set this permanently with [edit_r_environ()].
 #'
-#' @param path A character string, the path to bertini
-#' @return An invisible character string, the path found.  More importantly, the
-#'   function has the side effect of setting the global bertini option
-#'   "bertini_path"
-#' @export
-#' @name bertini_path
-#' @author David Kahle \email{david.kahle@@gmail.com}
+#' You can change this for the current session using [set_bertini_path()],
+#' which accepts a character string or, if missing, uses [file.choose()] to let
+#' you interactively; you just select an arbitrary executable.
+#'
+#' @param path A character string, the path to theh bertini executable
+#' @return A logical(1) or character(1) containing the path.
+#' @name pathing
+#' @author David Kahle \email{david@@kahle.io}
 #' @examples
 #'
-#' \dontrun{ requires Bertini
+#' has_bertini()
+#' if (has_bertini()) get_bertini_path()
 #'
 #'
-#' getOption("bertini")
+#' # you can set this permanently with the following. note that you'll
+#' # need to re-start the R session afterwards or simply pass the path into
+#' # set_bertini_path(). see below for more details on that.
+#' if (interactive()) edit_r_environ()
+#'
+#'
+#' # you can change this in your current session with set_bertini_path() and
+#' if (interactive()) set_bertini_path()
+#'
+#' if (had_bertini <- has_bertini()) old_bertini_path <- get_bertini_path()
+#' set_bertini_path("/path/to/bertini")
 #' get_bertini_path()
-#' set_bertini_path()
 #'
-#'
-#' ## each of these functions can be used statically as well
-#' (bertini_path <- get_bertini_path())
-#' set_bertini_path("/path/to/bertini/directory")
+#' if (had_bertini) set_bertini_path(old_bertini_path)
 #' get_bertini_path()
-#' set_bertini_path(bertini_path) # undoes example
 #'
-#'
-#' # if you'd like to use the cloud, after you library(bertini)
-#' # and before you use bertini() type
-#' set_bertini_path(NULL)
-#'
-#' # alternatively, if you have already been using bertini, do:
-#' stop_bertini()
-#' set_bertini_path(NULL)
-#' bertini("1+1")
-#'
-#'
-#' }
+NULL
 
 
 
 
 
 
-#' @rdname bertini_path
+
+
+
+
+
+
+#' @rdname pathing
 #' @export
-set_bertini_path <- function(path = NULL){
+set_bertini_path <- function(path){
 
   if(missing(path) && interactive()){
 
-    path <- dirname(file.choose())
-    if(is.win() && str_detect(path,"C:/")){
-      mpath <- str_replace(dirname(path), "C:/", "/cygdrive/c/")
+    bertini_path <- dirname(file.choose())
+    if(is_win() && str_detect(bertini_path,"C:/")){
+      bertini_path <- str_replace(dirname(bertini_path), "C:/", "/cygdrive/c/")
     }
-    set_bertini_option(bertini_path = path)
-    return(invisible(path))
+    Sys.setenv("BERTINI" = bertini_path)
+    return(invisible(bertini_path))
 
-  } else if (!missing(path)) {
+  } else if(!missing(path)){
 
-    set_bertini_option(bertini_path = path)
+    Sys.setenv("BERTINI" = path)
     return(invisible(path))
 
   } else {
+
     stop(
       "If the session is not interactive, a path must be specified.",
       call. = FALSE
     )
+
   }
 }
 
@@ -92,31 +87,44 @@ set_bertini_path <- function(path = NULL){
 
 
 
-#' @rdname bertini_path
+
+
+
+
+
+
+
+
+
+
+
+#' @rdname pathing
 #' @export
-get_bertini_path <- function() getOption("bertini")$bertini_path
+get_bertini_path <- function() Sys.getenv("BERTINI")
 
 
 
-#' @rdname bertini_path
+#' @rdname pathing
 #' @export
-get_bertini_con <- function() getOption("bertini")$bertini_con
+has_bertini <- function() get_bertini_path() != ""
 
 
 
-#' @rdname bertini_path
+#' @rdname pathing
 #' @export
-get_bertini_procid <- function() getOption("bertini")$bertini_procid
+missing_bertini_stop <- function() {
+  stop(
+    "bertini doesn't know where the bertini executable is.\n",
+    "See ?set_bertini_path to learn how to set it.",
+    call. = FALSE
+  )
+}
 
 
 
-#' @rdname bertini_path
+#' @importFrom usethis edit_r_environ
 #' @export
-get_bertini_port <- function() getOption("bertini")$bertini_port
-
-
-
-
+usethis::edit_r_environ
 
 
 

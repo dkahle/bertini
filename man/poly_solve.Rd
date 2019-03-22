@@ -19,7 +19,7 @@ poly_solve(lhs, rhs, var_order, ...)
 an object of class bertini
 }
 \description{
-\code{poly_solve} solves a system of polynomial equations, specifiable in any
+\code{\link[=poly_solve]{poly_solve()}} solves a system of polynomial equations, specifiable in any
 of several ways.
 }
 \examples{

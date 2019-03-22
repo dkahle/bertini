@@ -11,7 +11,7 @@
 #' @export bertini
 #' @examples
 #'
-#' \dontrun{ requires Bertini
+#' if (has_bertini()) {
 #'
 #' # where does the circle intersect the line y = x?
 #' code <- "
@@ -111,59 +111,47 @@
 #'
 bertini <- function(code, dir = tempdir(), quiet = TRUE){
 
+  # stop if bertini is not present
+  if (!has_bertini()) missing_bertini_stop()
+
 
   # make dir to put bertini files in (within the tempdir) timestamped
-  bertini_file_dir <- file.path(dir, time_stamp())
-  suppressWarnings(dir.create(bertini_file_dir))
-
-
-  # define a function to write the code to a file
-  write_bertini <- function(code, codeFile = "bertini_code"){
-
-    # pull code from function body
-    if(is.function(code)) code <- as.character(body(code))[-1]
-    if(is.character(code)){
-      if(str_sub(code, 1, 1) != "\n") code <- paste("\n", code, sep = "")
-      if(str_sub(code, -1, -1) != "\n") code <- paste(code, "\n", sep = "")
-      code <- strsplit(code, "\\n")[[1]][-1]
-    }
-
-    # write code file
-    writeLines(code, con = file.path(bertini_file_dir, codeFile))
-    invisible(code)
-  }
+  dir.create(scratch_dir <-  file.path(dir, time_stamp()))
 
 
   # make bertini file
-  write_bertini(code)
+  write_bertini(code, where = scratch_dir)
 
 
   # switch to temporary directory, run bertini
   user_working_directory <- getwd()
-  setwd(bertini_file_dir); on.exit(setwd(user_working_directory), add = TRUE)
+  setwd(scratch_dir); on.exit(setwd(user_working_directory), add = TRUE)
 
 
   # run bertini
   system2(
     file.path(get_bertini_path(), "bertini"),
-    file.path(bertini_file_dir, "bertini_code"),
-    stdout = "bertini_out"
+    file.path(scratch_dir, "bertini_code"),
+    stdout = "bertini_out",
+    stderr = "bertini_err"
   )
 
 
   # print bertini output, if requested
   if(!quiet) cat(readLines("bertini_out"), sep = "\n")
+  if(!quiet) std_err <- readLines("bertini_err")
+  if(!quiet && any(std_err != "")) message(str_c(std_err, collapse = "\n"))
 
 
   # figure out what files to keep them, and make bertini object
   files <- list.files()
-  rawOutput <- as.list(vector(length = length(files)))
-  names(rawOutput) <- files
-  for(k in seq_along(files)) rawOutput[[k]] <- readLines(files[k])
+  raw_output <- as.list(vector(length = length(files)))
+  names(raw_output) <- files
+  for(k in seq_along(files)) raw_output[[k]] <- readLines(files[k])
 
 
   # convert the raw output into interesting output
-  out <- rawOutput
+  out <- raw_output
   if("finite_solutions" %in% files) out$finite_solutions <- parse_bertini_finite_solutions(out)
   if("nonsingular_solutions" %in% files) out$nonsingular_solutions <- parse_bertini_nonsingular_solutions(out)
   if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
@@ -175,9 +163,9 @@ bertini <- function(code, dir = tempdir(), quiet = TRUE){
 
 
   # add code and directory
-  out$raw_output <- rawOutput
+  out$raw_output <- raw_output
   out$bertini_code <- code
-  out$dir <- bertini_file_dir
+  out$dir <- scratch_dir
 
 
 
@@ -202,6 +190,23 @@ bertini <- function(code, dir = tempdir(), quiet = TRUE){
 
 
 
+write_bertini <- function(code, where = tempdir(), code_file = "bertini_code"){
+
+  # if code is in a function's body
+  if(is.function(code)) code <- as.character(body(code))[-1]
+
+  # if code is in a character string
+  if(is.character(code)){
+    if(str_sub(code, 1, 1) != "\n") code <- paste("\n", code, sep = "")
+    if(str_sub(code, -1, -1) != "\n") code <- paste(code, "\n", sep = "")
+    code <- strsplit(code, "\\n")[[1]][-1]
+  }
+
+  # write code file
+  writeLines(code, con = file.path(where, code_file))
+  invisible(code)
+
+}
 
 
 

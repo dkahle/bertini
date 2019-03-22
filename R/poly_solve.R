@@ -1,6 +1,6 @@
 #' Solve a System of Polynomial Equations
 #'
-#' \code{poly_solve} solves a system of polynomial equations, specifiable in any
+#' [poly_solve()] solves a system of polynomial equations, specifiable in any
 #' of several ways.
 #'
 #' @param lhs a mpolyList or character vector of left hand sides

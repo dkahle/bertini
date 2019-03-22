@@ -29,7 +29,7 @@ and bring the output back into R.
 }
 \examples{
 
-\dontrun{ requires Bertini
+if (has_bertini()) {
 
 # where does the circle intersect the line y = x?
 code <- "
