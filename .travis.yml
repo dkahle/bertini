@@ -5,8 +5,8 @@ sudo: false
 cache: packages
 
 before_install:
-  - apt-get update
-  - apt-get -y install curl
+  - sudo apt-get update
+  - sudo apt-get -y install curl
   - cd ~/
   - curl https://bertini.nd.edu/BertiniLinux64_v1.6.tar.gz -o BertiniLinux64_v1.6.tar.gz
   - tar -xf BertiniLinux64_v1.6.tar.gz
