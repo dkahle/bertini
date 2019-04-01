@@ -13,9 +13,11 @@ before_install:
   - cd BertiniLinux64_v1.6
   - export BERTINI=~/BertiniLinux64_v1.6
 
+install:
+  - Rscript -e 'devtools::install_deps()'
+
 script:
-  - R CMD build
-  - R CMD check bertini*tar.gz
+  - Rscript -e 'devtools::check()'
 
 after_script:
   - tar -ztvf bertini_*.tar.gz
