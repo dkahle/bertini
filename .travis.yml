@@ -14,7 +14,7 @@ before_install:
   - export BERTINI=~/BertiniLinux64_v1.6
 
 install:
-  - Rscript -e 'devtools::install_deps()'
+  - Rscript -e 'install.packages("devtools");devtools::install_deps()'
 
 script:
   - Rscript -e 'devtools::check()'
