@@ -19,7 +19,7 @@ install:
   - Rscript -e 'install.packages("devtools");devtools::install_deps()'
 
 script:
-  - Rscript -e 'devtools::check("bertini")'
+  - Rscript -e 'devtools::check()'
 
 after_script:
   - tar -ztvf bertini_*.tar.gz
