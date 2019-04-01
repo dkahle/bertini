@@ -14,9 +14,8 @@ before_install:
   - export BERTINI=~/BertiniLinux64_v1.6
 
 script:
-  - |
-    travis_wait 42 R CMD build .
-    travis_wait 59 R CMD check bertini*tar.gz
+  - R CMD build
+  - R CMD check bertini*tar.gz
 
 after_script:
   - tar -ztvf bertini_*.tar.gz
@@ -44,5 +43,3 @@ jobs:
   include:
   - r: devel
   - r: release
-#    env:
-#      - BERTINI=~/BertiniLinux64_v1.6
