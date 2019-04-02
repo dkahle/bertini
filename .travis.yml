@@ -5,16 +5,12 @@ sudo: false
 cache: packages
 
 before_install:
-  - echo $PWD
   - sudo apt-get update
   - sudo apt-get -y install curl
-  - export OLDWD=$PWD
-  - cd ~/
   - curl https://bertini.nd.edu/BertiniLinux64_v1.6.tar.gz -o BertiniLinux64_v1.6.tar.gz
   - tar -xf BertiniLinux64_v1.6.tar.gz
-  - cd BertiniLinux64_v1.6
-  - export BERTINI=~/BertiniLinux64_v1.6
-  - cd $OLDWD/dkahle/bertini
+  - export BERTINI=/home/travis/build/bertini/BertiniLinux64_v1.6
+  - cd /home/travis/build/bertini
 
 install:
   - Rscript -e 'install.packages("devtools");devtools::install_deps()'
