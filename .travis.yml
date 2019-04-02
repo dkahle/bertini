@@ -10,7 +10,7 @@ before_install:
   - curl https://bertini.nd.edu/BertiniLinux64_v1.6.tar.gz -o BertiniLinux64_v1.6.tar.gz
   - tar -xf BertiniLinux64_v1.6.tar.gz
   - export BERTINI=/home/travis/build/bertini/BertiniLinux64_v1.6
-  - cd /home/travis/build/bertini
+  - cd /home/travis/build/dkahle/bertini
 
 install:
   - Rscript -e 'install.packages("devtools");devtools::install_deps()'
