@@ -13,7 +13,7 @@ before_install:
   - cd /home/travis/build/dkahle/bertini
 
 install:
-  - Rscript -e 'install.packages("devtools");devtools::install_deps()'
+  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat"));devtools::install_deps()'
 
 script:
   - Rscript -e 'devtools::check()'
