@@ -5,9 +5,10 @@ sudo: false
 cache: packages
 
 before_install:
+  - echo $PWD
   - sudo apt-get update
   - sudo apt-get -y install curl
-  - export OLDWD=$(PWD)
+  - export OLDWD=$PWD
   - cd ~/
   - curl https://bertini.nd.edu/BertiniLinux64_v1.6.tar.gz -o BertiniLinux64_v1.6.tar.gz
   - tar -xf BertiniLinux64_v1.6.tar.gz
