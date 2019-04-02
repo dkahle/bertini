@@ -13,7 +13,7 @@ before_install:
   - tar -xf BertiniLinux64_v1.6.tar.gz
   - cd BertiniLinux64_v1.6
   - export BERTINI=~/BertiniLinux64_v1.6
-  - cd $(OLDWD)/dkahle/bertini
+  - cd $OLDWD/dkahle/bertini
 
 install:
   - Rscript -e 'install.packages("devtools");devtools::install_deps()'
