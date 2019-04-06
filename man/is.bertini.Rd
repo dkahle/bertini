@@ -17,8 +17,11 @@ Test whether an object is an bertini object.
 }
 \examples{
 
+if (has_bertini()) {
+
 soln <- poly_solve("x^2 - 1 == 0")
 is.bertini(soln)
 
+}
 
 }
