@@ -3,8 +3,8 @@
 #' Write a Bertini file, evaluate it through a back-end connection to Bertini,
 #' and bring the output back into R.
 #'
-#' @param code Bertini code as either a character string or function; see
-#'   examples
+#' @param code Bertini code as either a character string, function, or bertini_input object;
+#'  see examples
 #' @param dir directory to place the files in, without an ending /
 #' @param quiet show bertini output
 #' @return an object of class bertini
@@ -94,9 +94,11 @@
 #'
 #'
 #'
+#' # using a bertini_input object
 #'
-#'
-#'
+#' polys <- mp(c("x^2 + y^2 - 1", "x - y"))
+#' struct <- bertini_input(polys)
+#' bertini(struct)
 #'
 #'
 #'
@@ -200,6 +202,11 @@ write_bertini <- function(code, where = tempdir(), code_file = "bertini_code"){
     if(str_sub(code, 1, 1) != "\n") code <- paste("\n", code, sep = "")
     if(str_sub(code, -1, -1) != "\n") code <- paste(code, "\n", sep = "")
     code <- strsplit(code, "\\n")[[1]][-1]
+  }
+
+  # if code is a bertini_input object
+  if(is.bertini_input(code)){
+    code <- print(code, silent = TRUE)
   }
 
   # write code file
