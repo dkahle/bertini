@@ -5,7 +5,7 @@
 \title{Base Bertini_Input Creation}
 \usage{
 bertini_input(mpolyList, varorder, definitions = list(),
-  configurations = list())
+  configurations = list(), subfunctions = list())
 }
 \arguments{
 \item{mpolyList}{system of polynomials as either a character vector or mpolyList}
@@ -17,7 +17,11 @@ Bertini. The definitions name all arguments used in the polynomial and
 tell Bertini what type of homotopy to use. Defaults to a total-degree homotopy.}
 
 \item{configurations}{an optional named list of configurations to be given to
-Bertini.}
+Bertini. Names will be changed to lower case.}
+
+\item{subfunctions}{an optional named list that contains subfunctions and
+other equations needed in the input file but do not need to be named in the
+definitions block.}
 }
 \value{
 an object of class bertini_input
@@ -44,7 +48,16 @@ definitions <- list("variable_group" = c("x","y"),
                     "function" = c("fun1", "fun2"))
 bertini_input(polys, definitions = definitions)
 
+# adding configurations
 configurations <- list("securitymaxnorm" = 1e8)
-bertini_input(polys, definitions = definitions, configurations = configurations)
+bertini_input(polys, definitions = definitions,
+              configurations = configurations)
+
+# subfunction example from Bertini
+polys <- mp(c("S*T*(x-2)", "S*U*(y-2)", "S*T*U*(z-2)"))
+subfunctions <- list("S" = "x^2 + y^2 + z^2 - 1",
+                     "T" = "y - x^2",
+                     "U" = "x*y - z")
+bertini_input(polys, subfunctions = subfunctions)
 }
 }

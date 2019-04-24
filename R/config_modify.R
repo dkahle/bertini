@@ -6,8 +6,8 @@
 #' use \code{zap} to remove a configuration.
 #'
 #' @param x a bertini_input object
-#' @param ... configurations to be added or modified,
-#'  can also be specified in a list
+#' @param ... configurations to be added or modified.
+#'  The configurations can also be specified in a list.
 #'
 #' @return the bertini_input object with the added, modified,
 #'  or removed configurations
@@ -17,9 +17,9 @@
 #'
 #' struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y")))
 #'
-#' config_add(struct, parameterhomotopy = 1)
+#' config_modify(struct, parameterhomotopy = 1)
 
-config_add <- function(x, ...) {
+config_modify <- function(x, ...) {
 
   # stop if not a bertini_input object
   stopifnot(is.bertini_input(x))

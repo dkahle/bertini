@@ -21,7 +21,7 @@ print.bertini_input <- function(x, silent = FALSE) {
   stopifnot(is.bertini_input(x))
 
   if(is.null(unlist(x$config_block))) {
-    config_collapse <- " "
+    config_collapse <- ""
   } else {
     config_vec <- unlist(x$config_block)
     config_collapse <- glue_collapse(glue("{names(config_vec)}: {config_vec};"), sep = "\n")
@@ -31,13 +31,20 @@ print.bertini_input <- function(x, silent = FALSE) {
   def_vec <- map_chr(x$defs_block, glue_collapse, sep = ", ")
   def_collapse <- glue_collapse(glue("{names(def_vec)} {def_vec};"), sep = "\n")
 
+  # parse subfunctions
+  if(is.null(unlist(x$subfun_block))) {
+    subfun_collapse <- ""
+  } else {
+    subfun_vec <- unlist(x$subfun_block)
+    subfun_collapse <- glue_collapse(glue("{names(subfun_vec)} = {subfun_vec};"), sep = "\n")
+  }
   # parse functions
   funs <- print(x$funs_block, stars = TRUE, silent = TRUE)
   funs <- str_replace_all(funs, "  ", " ")
   funs <- str_replace_all(funs, "\\*\\*", "^")
   funs_collapse <- glue_collapse(glue("{x$defs_block$'function'} = {funs};"), sep = "\n")
 
-  combine <- glue("CONFIG \n {config_collapse} \n END; \n\n INPUT \n {def_collapse} \n\n {funs_collapse} \n END;")
+  combine <- glue("CONFIG \n {config_collapse} \nEND; \n\nINPUT \n{def_collapse} \n\n{subfun_collapse}\n{funs_collapse} \nEND;")
 
   if(!silent) cat(combine)
 

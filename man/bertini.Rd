@@ -10,8 +10,8 @@
 bertini(code, dir = tempdir(), quiet = TRUE)
 }
 \arguments{
-\item{code}{Bertini code as either a character string or function; see
-examples}
+\item{code}{Bertini code as either a character string, function, or bertini_input object;
+see examples}
 
 \item{dir}{directory to place the files in, without an ending /}
 
@@ -112,9 +112,11 @@ bertini(code, quiet = FALSE) # print broken here
 
 
 
+# using a bertini_input object
 
-
-
+polys <- mp(c("x^2 + y^2 - 1", "x - y"))
+struct <- bertini_input(polys)
+bertini(struct)
 
 
 
