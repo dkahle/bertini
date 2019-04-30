@@ -23,7 +23,7 @@ defs_modify <- function(x, ...) {
 
   defs <- list(...)
 
-  # check to see if configurations are valid
+  # check to see if definitions are valid
   if(!all(names(defs) %in% valid_def_names)) {
     stop("not all definition names are valid; See valid_def_names")
   }

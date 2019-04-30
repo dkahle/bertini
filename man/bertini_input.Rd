@@ -4,13 +4,11 @@
 \alias{bertini_input}
 \title{Base Bertini_Input Creation}
 \usage{
-bertini_input(mpolyList, varorder, definitions = list(),
-  configurations = list(), subfunctions = list())
+bertini_input(mpolyList, definitions = list(), configurations = list(),
+  subfunctions = list())
 }
 \arguments{
 \item{mpolyList}{system of polynomials as either a character vector or mpolyList}
-
-\item{varorder}{variable order (see examples)}
 
 \item{definitions}{an optional named list of the definitions to be given to
 Bertini. The definitions name all arguments used in the polynomial and

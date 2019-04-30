@@ -3,7 +3,7 @@
 #' Write a Bertini file, evaluate it through a back-end connection to Bertini,
 #' and bring the output back into R.
 #'
-#' @param code Bertini code as either a character string, function, or bertini_input object;
+#' @param code Bertini code as either a character string, or bertini_input object;
 #'  see examples
 #' @param dir directory to place the files in, without an ending /
 #' @param quiet show bertini output

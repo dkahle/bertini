@@ -22,7 +22,7 @@
 #' poly_optim("-(x^2 + (y - 2)^2)")
 #' poly_optim("-(x^2 + (y - 2)^2)") # saddle
 #'
-#' poly_optim("(x - 1) (x - 2) (x - 3)") # fix global labeling
+#' poly_optim("(x - 1) (x - 2) (x - 3)")
 #'
 #'
 #' # constrained optimization over the affine varieties is also available

@@ -9,7 +9,6 @@
 #'
 #'
 #' @param mpolyList system of polynomials as either a character vector or mpolyList
-#' @param varorder variable order (see examples)
 #' @param definitions an optional named list of the definitions to be given to
 #'    Bertini. The definitions name all arguments used in the polynomial and
 #'    tell Bertini what type of homotopy to use. Defaults to a total-degree homotopy.
@@ -48,7 +47,6 @@
 #' bertini_input(polys, subfunctions = subfunctions)
 #' }
 bertini_input <- function(mpolyList,
-                          varorder,
                           definitions = list(),
                           configurations = list(),
                           subfunctions = list()
@@ -58,15 +56,9 @@ bertini_input <- function(mpolyList,
   if(is.mpoly(mpolyList)) mpolyList <- structure(list(mpolyList), class = "mpolyList")
   stopifnot(is.mpolyList(mpolyList))
 
-  if(!missing(varorder) && !all(sort(vars) == sort(varorder))) stop(
-    "If varorder is provided, it must contain all of the variables.",
-    call. = FALSE
-  )
-
   # sort out variables
   vars <- mpoly::vars(mpolyList)
 
-  if(!missing(varorder)) vars <- varorder
 
   # work with subfunctions
   if(length(subfunctions) > 0) {

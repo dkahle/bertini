@@ -10,7 +10,7 @@
 bertini(code, dir = tempdir(), quiet = TRUE)
 }
 \arguments{
-\item{code}{Bertini code as either a character string, function, or bertini_input object;
+\item{code}{Bertini code as either a character string, or bertini_input object;
 see examples}
 
 \item{dir}{directory to place the files in, without an ending /}
