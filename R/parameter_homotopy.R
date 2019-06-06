@@ -33,6 +33,7 @@
 
 parameter_homotopy <- function(mpolyList,
                                parameters,
+                               varorder,
                                run_type = c("offline", "online"),
                                definitions = list(),
                                configurations = list(),
@@ -43,6 +44,7 @@ parameter_homotopy <- function(mpolyList,
 
   # feed to bertini_input
   struct <- bertini_input(mpolyList,
+                          varorder,
                           definitions = definitions,
                           configurations = configurations,
                           subfunctions = subfunctions)

@@ -14,9 +14,9 @@
 #'   polys <- mp(c("x^2 + y^2 - 1", "x - y"))
 #'   input <- bertini_input(polys)
 #'
-#'   defs_modify(input, variable_group = "x", variable_group = "y")
+#'   modify_defs(input, variable_group = "x", variable_group = "y")
 #' }
-defs_modify <- function(x, ...) {
+modify_defs <- function(x, ...) {
 
   # stop if not a bertini_input object
   stopifnot(is.bertini_input(x))

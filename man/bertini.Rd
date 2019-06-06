@@ -7,7 +7,12 @@
 \alias{bertini-package}
 \title{R Interface to Bertini}
 \usage{
-bertini(code, dir = tempdir(), quiet = TRUE)
+bertini(code, dir = tempdir(), quiet = TRUE,
+  bertini_function = c("total_degree", "multihomogenous", "parameter",
+  "regeneration", "user", "function_evaluation", "newton_iterations",
+  "sharpening", "irreducible_components", "sampling", "membership_testing",
+  "witness_set_printing", "isosingular_stabilization",
+  "pseudowitness_set_printing"), control = list())
 }
 \arguments{
 \item{code}{Bertini code as either a character string, or bertini_input object;
@@ -16,6 +21,11 @@ see examples}
 \item{dir}{directory to place the files in, without an ending /}
 
 \item{quiet}{show bertini output}
+
+\item{bertini_function}{the task Bertini is performing}
+
+\item{control}{optional list of information needed based on the
+value of \code{bertini_function}}
 }
 \value{
 an object of class bertini

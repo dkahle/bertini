@@ -4,9 +4,9 @@
 \alias{parameter_homotopy}
 \title{Create a Parameter Homotopy Bertini Input File}
 \usage{
-parameter_homotopy(mpolyList, parameters, run_type = c("offline",
-  "online"), definitions = list(), configurations = list(),
-  subfunctions = list())
+parameter_homotopy(mpolyList, parameters, varorder,
+  run_type = c("offline", "online"), definitions = list(),
+  configurations = list(), subfunctions = list())
 }
 \arguments{
 \item{mpolyList}{system of polynomials as either a character vector or mpolyList}

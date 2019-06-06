@@ -17,9 +17,9 @@
 #'
 #' struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y")))
 #'
-#' config_modify(struct, parameterhomotopy = 1)
+#' modify_config(struct, parameterhomotopy = 1)
 
-config_modify <- function(x, ...) {
+modify_config <- function(x, ...) {
 
   # stop if not a bertini_input object
   stopifnot(is.bertini_input(x))
