@@ -51,9 +51,9 @@ parameter_homotopy <- function(mpolyList,
 
   # set parameter_homotopy configurations
   if(run_type == "offline") {
-    struct <- config_modify(struct, parameterhomotopy = 1)
+    struct <- modify_config(struct, parameterhomotopy = 1)
   } else {
-    struct <- config_modify(struct, parameterhomotopy = 2)
+    struct <- modify_config(struct, parameterhomotopy = 2)
   }
 
   # modify definitions
@@ -62,7 +62,7 @@ parameter_homotopy <- function(mpolyList,
   struct$defs_block <- lapply(struct$defs_block, function(x) x[!x %in% parameters])
 
   # put in parameters line
-  struct <- defs_modify(struct, parameter = parameters)
+  struct <- modify_defs(struct, parameter = parameters)
 
   # return structure
   struct
