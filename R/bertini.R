@@ -136,162 +136,15 @@ bertini <- function(code,
 
   bertini_function <- match.arg(bertini_function)
 
-  if(bertini_function == "parameter") {
-
-    # stop if bertini is not present
-    if (!has_bertini()) missing_bertini_stop()
-
-    # what type of run is it?
-    if(!"run_type" %in% names(control)) stop("run_type must be in your control list")
-
-    if(control$run_type == "offline") {
-
-      # make dir to put bertini files in (within the tempdir) timestamped
-      dir.create(scratch_dir <-  file.path(dir, time_stamp()))
-
-
-      # make bertini file
-      write_bertini(code, where = scratch_dir)
-
-
-      # switch to temporary directory, run bertini
-      user_working_directory <- getwd()
-      setwd(scratch_dir); on.exit(setwd(user_working_directory), add = TRUE)
-
-
-      # run bertini
-      system2(
-        file.path(get_bertini_path(), "bertini"),
-        file.path(scratch_dir, "bertini_code"),
-        stdout = "bertini_out",
-        stderr = "bertini_err"
-      )
-
-
-      # print bertini output, if requested
-      if(!quiet) cat(readLines("bertini_out"), sep = "\n")
-      if(!quiet) std_err <- readLines("bertini_err")
-      if(!quiet && any(std_err != "")) message(str_c(std_err, collapse = "\n"))
-
-      # figure out what files to keep, and make bertini object
-      files <- list.files()
-      raw_output <- as.list(vector(length = length(files)))
-      names(raw_output) <- files
-      for(k in seq_along(files)) raw_output[[k]] <- readLines(files[k])
-
-      param_out <- list(start = raw_output$nonsingular_solutions,
-                        start_parameters = raw_output$start_parameters)
-
-      out <- raw_output
-      if("finite_solutions" %in% files) out$finite_solutions <- parse_bertini_finite_solutions(out)
-      if("nonsingular_solutions" %in% files) out$nonsingular_solutions <- parse_bertini_nonsingular_solutions(out)
-      if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
-      if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
-      if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
-      if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
-      if("start" %in% files) out$start <- parse_bertini_start(out)
-      if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
-
-
-      # add code and directory
-      out$raw_output <- raw_output
-      out$bertini_code <- code
-      out$dir <- scratch_dir
-
-      # add parameter stuff
-      out$general_param <- param_out
-
-
-      # class and out
-      class(out) <- "bertini"
-      out
-    } else {
-      # online solving
-
-      # make dir to put bertini files in (within the tempdir) timestamped
-      dir.create(scratch_dir <-  file.path(dir, time_stamp()))
-
-      # make start file
-      writeLines(control$general_solution$start, file.path(scratch_dir, "start"))
-
-      # make start_parameters
-      writeLines(control$general_solution$start_parameters, file.path(scratch_dir, "start_parameters"))
-
-      # make final_parameters
-      data <- control$data
-
-      # parse real and imaginary parts
-      real <- Re(data)
-      imaginary <- Im(data)
-
-      final_data <- glue("{real} {imaginary};")
-      final_params <- glue("{length(data)} \n\n{glue_collapse(final_data, sep = '\n')}")
-      writeLines(final_params, file.path(scratch_dir, "final_parameters"))
-
-      # make bertini file
-      write_bertini(code, where = scratch_dir)
-
-
-      # switch to temporary directory, run bertini
-      user_working_directory <- getwd()
-      setwd(scratch_dir); on.exit(setwd(user_working_directory), add = TRUE)
-
-
-      # run bertini
-      system2(
-        file.path(get_bertini_path(), "bertini"),
-        file.path(scratch_dir, "bertini_code"),
-        stdout = "bertini_out",
-        stderr = "bertini_err"
-      )
-
-
-      # print bertini output, if requested
-      if(!quiet) cat(readLines("bertini_out"), sep = "\n")
-      if(!quiet) std_err <- readLines("bertini_err")
-      if(!quiet && any(std_err != "")) message(str_c(std_err, collapse = "\n"))
-
-
-      # figure out what files to keep them, and make bertini object
-      files <- list.files()
-      raw_output <- as.list(vector(length = length(files)))
-      names(raw_output) <- files
-      for(k in seq_along(files)) raw_output[[k]] <- readLines(files[k])
-
-
-      # convert the raw output into interesting output
-      out <- raw_output
-      if("finite_solutions" %in% files) out$finite_solutions <- parse_bertini_finite_solutions(out)
-      if("nonsingular_solutions" %in% files) out$nonsingular_solutions <- parse_bertini_nonsingular_solutions(out)
-      if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
-      if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
-      if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
-      if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
-      if("start" %in% files) out$start <- parse_bertini_start(out)
-      if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
-
-
-      # add code and directory
-      out$raw_output <- raw_output
-      out$bertini_code <- code
-      out$dir <- scratch_dir
-
-
-
-      # class and out
-      class(out) <- "bertini"
-      out
-    }
-
-  } else {
-
   # stop if bertini is not present
   if (!has_bertini()) missing_bertini_stop()
 
-
-  # make dir to put bertini files in (within the tempdir) timestamped
-  dir.create(scratch_dir <-  file.path(dir, time_stamp()))
-
+  if(bertini_function != "parameter") {
+      # make dir to put bertini files in (within the tempdir) timestamped
+      dir.create(scratch_dir <-  file.path(dir, time_stamp()))
+  } else {
+    scratch_dir <- dir
+  }
 
   # make bertini file
   write_bertini(code, where = scratch_dir)
@@ -331,8 +184,8 @@ bertini <- function(code,
   if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
   if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
   if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
-  if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
-  if("start" %in% files) out$start <- parse_bertini_start(out)
+ #if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
+ #if("start" %in% files) out$start <- parse_bertini_start(out)
   if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
 
 
@@ -346,7 +199,6 @@ bertini <- function(code,
   # class and out
   class(out) <- "bertini"
   out
-  }
 }
 
 
@@ -608,7 +460,7 @@ parse_bertini_midpath_data <- function(rawOutput){
   mdpthPts <- mdpthPts[-length(mdpthPts)]
   mdpthPts <- mdpthPts[nchar(mdpthPts) > 0]
 
-  pthMarkerNdx <- which(unname(sapply(mdpthPts, nchar)) == 1)
+  pthMarkerNdx <- which(unname(sapply(mdpthPts, nchar)) == 1 | unname(sapply(mdpthPts, nchar)) == 2)
   mdpthPts <- mdpthPts[-pthMarkerNdx]
   mdpthPts <- strsplit(mdpthPts, " ")
   mdpthPts <- vapply(mdpthPts, function(x){
@@ -634,6 +486,7 @@ parse_bertini_midpath_data <- function(rawOutput){
 
 parse_bertini_start <- function(rawOutput){
 
+browser()
   # check for no finite solutions
   if(
     length(rawOutput$start) == 1 &&

@@ -39,6 +39,12 @@ modify_defs <- function(x, ...) {
     sub_vars <- defs[names(defs) == "variable_group" | names(defs) == "hom_variable_group"]
     x$defs_block <- c(sub_vars, sub_modified)
   } else {
+
+    # remove elements that are being redefined
+    index_list <- lapply(x$defs_block, function(x)! x %in% unlist(defs))
+    x$defs_block <- mapply(function(x,y) x[y], x$defs_block, index_list, SIMPLIFY = FALSE)
+
+    # add in new definitions
     x$defs_block <- list_modify(x$defs_block, !!!defs)
   }
   x
