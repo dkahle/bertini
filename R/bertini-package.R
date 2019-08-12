@@ -6,7 +6,8 @@
 #' @docType package
 #' @name bertini
 #' @aliases bertini package-bertini
-#' @import mpoly rlang
+#' @import mpoly
+#' @importFrom rlang !!!
 #' @importFrom stringr str_replace_all str_detect fixed str_sub str_split
 #'   str_replace str_c str_extract_all str_extract str_to_lower
 #' @importFrom purrr pluck flatten_chr list_modify zap map_chr

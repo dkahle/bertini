@@ -7,7 +7,6 @@
 #'
 #' @param x a bertini_input object
 #' @param ... configurations to be added or modified.
-#'  The configurations can also be specified in a list.
 #'
 #' @return the bertini_input object with the added, modified,
 #'  or removed configurations
@@ -17,7 +16,7 @@
 #'
 #' struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y")))
 #'
-#' modify_config(struct, parameterhomotopy = 1)
+#' modify_config(struct, precision = 124)
 
 modify_config <- function(x, ...) {
 

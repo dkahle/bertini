@@ -4,18 +4,15 @@
 \alias{parameter_homotopy}
 \title{Create a Parameter Homotopy Bertini Input File}
 \usage{
-parameter_homotopy(mpolyList, parameters, varorder,
-  run_type = c("offline", "online"), definitions = list(),
-  configurations = list(), subfunctions = list())
+parameter_homotopy(input, parameters, varorder,
+  precomputed_solutions = NULL, dir = tempdir(),
+  definitions = list(), configurations = list(),
+  subfunctions = list())
 }
 \arguments{
-\item{mpolyList}{system of polynomials as either a character vector or mpolyList}
+\item{input}{system of polynomials as either a character vector or mpolyList}
 
 \item{parameters}{the parameters that define the family as a character vector}
-
-\item{run_type}{the step of the parameter homotopy you are running. \code{offline}
-instructs the function to solve for the general solutions, and \code{online} instructs
-the function to solve for specific solutions based on data.}
 
 \item{definitions}{an optional named list of the definitions to be given to
 Bertini. The definitions name all arguments used in the polynomial and
@@ -27,6 +24,10 @@ Bertini. Names will be changed to lower case.}
 \item{subfunctions}{an optional named list that contains subfunctions and
 other equations needed in the input file but do not need to be named in the
 definitions block.}
+
+\item{run_type}{the step of the parameter homotopy you are running. \code{offline}
+instructs the function to solve for the general solutions, and \code{online} instructs
+the function to solve for specific solutions based on data.}
 }
 \value{
 an object of class bertini_input
@@ -36,13 +37,9 @@ Configure a Bertini input file to run a parameter homotopy
 }
 \examples{
 
- polys <- c("-r11^2 + p00^2*p11*l1 + p00^2*l2",
-"-r12^2 - p01^2*p10*l1 + p01^2*l2",
-"-r21^2 - p10^2*p01*l1 + p10^2*l2",
-"-r22^2 + p11^2*p00*l1 + p11^2*l2",
-"p00*p11 - p01*p10",
-"p00 + p01 + p10 + p11 - 1")
+# a sextic in one variable (from Bertini)
+polys <- c("a0 + x*(a1 + x*(a2 + x*(a3 + x*(a4 + x*(a5 + x*a6)))))")
 
-parameter_homotopy(polys, c("r11","r12","r21","r22"))
-
+generator <- parameter_homotopy(polys, parameters = c("a0","a1","a2","a3","a4","a5","a6"))
+generator(c(1.1, 2.4, 0.8, 3.6, -0.52, -1.8, 4.4))
 }

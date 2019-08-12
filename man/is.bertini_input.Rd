@@ -21,7 +21,7 @@ if (has_bertini()) {
 
 polys <- mp(c("x^2 + y^2 - 1", "x - y"))
 struct <- bertini_input(polys)
-is.bertini(struct)
+is.bertini_input(struct)
 
 }
 

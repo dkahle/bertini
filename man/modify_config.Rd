@@ -9,8 +9,7 @@ modify_config(x, ...)
 \arguments{
 \item{x}{a bertini_input object}
 
-\item{...}{configurations to be added or modified.
-The configurations can also be specified in a list.}
+\item{...}{configurations to be added or modified.}
 }
 \value{
 the bertini_input object with the added, modified,
@@ -26,5 +25,5 @@ use \code{zap} to remove a configuration.
 
 struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y")))
 
-modify_config(struct, parameterhomotopy = 1)
+modify_config(struct, precision = 124)
 }

@@ -7,12 +7,8 @@
 \alias{bertini-package}
 \title{R Interface to Bertini}
 \usage{
-bertini(code, dir = tempdir(), quiet = TRUE,
-  bertini_function = c("total_degree", "multihomogenous", "parameter",
-  "regeneration", "user", "function_evaluation", "newton_iterations",
-  "sharpening", "irreducible_components", "sampling", "membership_testing",
-  "witness_set_printing", "isosingular_stabilization",
-  "pseudowitness_set_printing"), control = list())
+bertini(code, dir = tempdir(), quiet = TRUE, output = c("zero_dim",
+  "pos_dim"), parameter_homotopy = FALSE)
 }
 \arguments{
 \item{code}{Bertini code as either a character string, or bertini_input object;
@@ -22,10 +18,9 @@ see examples}
 
 \item{quiet}{show bertini output}
 
-\item{bertini_function}{the task Bertini is performing}
+\item{output}{the type of output expected (zero-dimensional or positive-dimensional)}
 
-\item{control}{optional list of information needed based on the
-value of \code{bertini_function}}
+\item{parameter_homotopy}{logical indicating if the run is a parameter homotopy.}
 }
 \value{
 an object of class bertini
@@ -117,8 +112,7 @@ INPUT
   f2 = x^3-z;
 END;
 "
-out <- bertini(code)
-bertini(code, quiet = FALSE) # print broken here
+bertini(code, output = "pos_dim")
 
 
 

@@ -7,9 +7,8 @@
 #'  see examples
 #' @param dir directory to place the files in, without an ending /
 #' @param quiet show bertini output
-#' @param bertini_function the task Bertini is performing
-#' @param control optional list of information needed based on the
-#' value of \code{bertini_function}
+#' @param output the type of output expected (zero-dimensional or positive-dimensional)
+#' @param parameter_homotopy logical indicating if the run is a parameter homotopy.
 #' @return an object of class bertini
 #' @export bertini
 #' @examples
@@ -92,8 +91,7 @@
 #'   f2 = x^3-z;
 #' END;
 #' "
-#' out <- bertini(code)
-#' bertini(code, quiet = FALSE) # print broken here
+#' bertini(code, output = "pos_dim")
 #'
 #'
 #'
@@ -117,29 +115,16 @@
 bertini <- function(code,
                     dir = tempdir(),
                     quiet = TRUE,
-                    bertini_function = c("total_degree",
-                                      "multihomogenous",
-                                      "parameter",
-                                      "regeneration",
-                                      "user",
-                                      "function_evaluation",
-                                      "newton_iterations",
-                                      "sharpening",
-                                      "irreducible_components",
-                                      "sampling",
-                                      "membership_testing",
-                                      "witness_set_printing",
-                                      "isosingular_stabilization",
-                                      "pseudowitness_set_printing"
-                                      ),
-                    control = list()){
+                    output = c("zero_dim", "pos_dim"),
+                    parameter_homotopy = FALSE){
 
-  bertini_function <- match.arg(bertini_function)
+
+  output <- match.arg(output)
 
   # stop if bertini is not present
   if (!has_bertini()) missing_bertini_stop()
 
-  if(bertini_function != "parameter") {
+  if(!parameter_homotopy) {
       # make dir to put bertini files in (within the tempdir) timestamped
       dir.create(scratch_dir <-  file.path(dir, time_stamp()))
   } else {
@@ -170,34 +155,42 @@ bertini <- function(code,
   if(!quiet && any(std_err != "")) message(str_c(std_err, collapse = "\n"))
 
 
-  # figure out what files to keep them, and make bertini object
+  # figure out what files to keep, and make bertini object
   files <- list.files()
   raw_output <- as.list(vector(length = length(files)))
   names(raw_output) <- files
   for(k in seq_along(files)) raw_output[[k]] <- readLines(files[k])
 
-
-  # convert the raw output into interesting output
-  out <- raw_output
-  if("finite_solutions" %in% files) out$finite_solutions <- parse_bertini_finite_solutions(out)
-  if("nonsingular_solutions" %in% files) out$nonsingular_solutions <- parse_bertini_nonsingular_solutions(out)
-  if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
-  if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
-  if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
- #if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
- #if("start" %in% files) out$start <- parse_bertini_start(out)
-  if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
-
-
-  # add code and directory
-  out$raw_output <- raw_output
-  out$bertini_code <- code
-  out$dir <- scratch_dir
+  if(output == "zero_dim") {
+    # convert the raw output into interesting output
+    out <- raw_output
+    if("finite_solutions" %in% files) out$finite_solutions <- parse_bertini_finite_solutions(out)
+    if("nonsingular_solutions" %in% files) out$nonsingular_solutions <- parse_bertini_nonsingular_solutions(out)
+    if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
+    if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
+    if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
+   #if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
+   #if("start" %in% files) out$start <- parse_bertini_start(out)
+    if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
 
 
+    # add code and directory
+    out$raw_output <- raw_output
+    out$bertini_code <- code
+    out$dir <- scratch_dir
 
-  # class and out
-  class(out) <- "bertini"
+
+
+    # class and out
+    class(out) <- "bertini"
+  } else if(output == "pos_dim") {
+    out <- raw_output
+
+    out$bertini_code <- code
+    out$dir <- scratch_dir
+
+    class(out) <- "bertini_posdim"
+  }
   out
 }
 
