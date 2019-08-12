@@ -1,12 +1,13 @@
-#' Create a Parameter Homotopy Bertini Input File
+#' Parameter Homotopies
 #'
-#' Configure a Bertini input file to run a parameter homotopy
-#'
-#' @param input system of polynomials as either a character vector or mpolyList
+#' @param input system of polynomials as either a character vector,
+#' mpolyList, or bertini_input object
 #' @param parameters the parameters that define the family as a character vector
-#' @param run_type the step of the parameter homotopy you are running. \code{offline}
-#' instructs the function to solve for the general solutions, and \code{online} instructs
-#' the function to solve for specific solutions based on data.
+#' @param varorder (optional) order of variables in string
+#' @param precomputed_solutions an optional list that contains the pertinent
+#' results of an ab initio run (start and start_parameters files) for the system. Supplying
+#' these files can greatly decrease the computation time.
+#' @param dir directory to place the files in, without an ending /
 #' @param definitions an optional named list of the definitions to be given to
 #'    Bertini. The definitions name all arguments used in the polynomial and
 #'    tell Bertini what type of homotopy to use. Defaults to a total-degree homotopy.

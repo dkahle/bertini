@@ -5,7 +5,7 @@
 #'
 #' @param out the output of a positive-dimension run from bertini
 #' @param points a matrix of points to be tested
-#' @param dir directory where the computations will take place
+#' @param dir directory to place the files in, without an ending /
 #' @param ... additional configuration arguments to be changed
 #'
 #' @return a 'glue' object that contains the decision of each point

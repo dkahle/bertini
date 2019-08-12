@@ -16,7 +16,7 @@ to be printed.}
 components starts at 0, not 1. To select all components of a particular
 dimension, input -2.}
 
-\item{dir}{directory where the computations will take place}
+\item{dir}{directory to place the files in, without an ending /}
 
 \item{...}{additional configuration arguments to be changed.}
 }

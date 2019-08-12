@@ -16,7 +16,7 @@ starts at 0, not 1.}
 
 \item{n}{the number of samples to be drawn from the selected component}
 
-\item{dir}{directory where the computations will take place}
+\item{dir}{directory to place the files in, without an ending /}
 
 \item{...}{additional configuration arguments to be changed}
 }

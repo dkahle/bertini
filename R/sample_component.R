@@ -8,7 +8,7 @@
 #' @param component the component to be sampled from. Indexing of components
 #' starts at 0, not 1.
 #' @param n the number of samples to be drawn from the selected component
-#' @param dir directory where the computations will take place
+#' @param dir directory to place the files in, without an ending /
 #' @param ... additional configuration arguments to be changed
 #'
 #' @return a matrix of samples

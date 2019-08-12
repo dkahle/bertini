@@ -11,7 +11,7 @@ membership_test(out, points, dir = tempdir(), ...)
 
 \item{points}{a matrix of points to be tested}
 
-\item{dir}{directory where the computations will take place}
+\item{dir}{directory to place the files in, without an ending /}
 
 \item{...}{additional configuration arguments to be changed}
 }

@@ -9,7 +9,7 @@
 #' @param component The component's witness set to be printed. Indexing of
 #' components starts at 0, not 1. To select all components of a particular
 #' dimension, input -2.
-#' @param dir directory where the computations will take place
+#' @param dir directory to place the files in, without an ending /
 #' @param ... additional configuration arguments to be changed.
 #'
 #' @return an object of class witness_set

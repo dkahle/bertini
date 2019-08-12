@@ -2,7 +2,7 @@
 % Please edit documentation in R/parameter_homotopy.R
 \name{parameter_homotopy}
 \alias{parameter_homotopy}
-\title{Create a Parameter Homotopy Bertini Input File}
+\title{Parameter Homotopies}
 \usage{
 parameter_homotopy(input, parameters, varorder,
   precomputed_solutions = NULL, dir = tempdir(),
@@ -10,9 +10,18 @@ parameter_homotopy(input, parameters, varorder,
   subfunctions = list())
 }
 \arguments{
-\item{input}{system of polynomials as either a character vector or mpolyList}
+\item{input}{system of polynomials as either a character vector,
+mpolyList, or bertini_input object}
 
 \item{parameters}{the parameters that define the family as a character vector}
+
+\item{varorder}{(optional) order of variables in string}
+
+\item{precomputed_solutions}{an optional list that contains the pertinent
+results of an ab initio run (start and start_parameters files) for the system. Supplying
+these files can greatly decrease the computation time.}
+
+\item{dir}{directory to place the files in, without an ending /}
 
 \item{definitions}{an optional named list of the definitions to be given to
 Bertini. The definitions name all arguments used in the polynomial and
@@ -24,16 +33,12 @@ Bertini. Names will be changed to lower case.}
 \item{subfunctions}{an optional named list that contains subfunctions and
 other equations needed in the input file but do not need to be named in the
 definitions block.}
-
-\item{run_type}{the step of the parameter homotopy you are running. \code{offline}
-instructs the function to solve for the general solutions, and \code{online} instructs
-the function to solve for specific solutions based on data.}
 }
 \value{
 an object of class bertini_input
 }
 \description{
-Configure a Bertini input file to run a parameter homotopy
+Parameter Homotopies
 }
 \examples{
 
