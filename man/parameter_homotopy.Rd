@@ -35,7 +35,8 @@ other equations needed in the input file but do not need to be named in the
 definitions block.}
 }
 \value{
-an object of class bertini_input
+a closure that accepts specific values for the parameters and computes
+the solutions for those specific values
 }
 \description{
 Parameter Homotopies

@@ -16,7 +16,8 @@
 #' @param subfunctions an optional named list that contains subfunctions and
 #' other equations needed in the input file but do not need to be named in the
 #' definitions block.
-#' @return an object of class bertini_input
+#' @return a closure that accepts specific values for the parameters and computes
+#' the solutions for those specific values
 #' @export
 #'
 #' @examples
