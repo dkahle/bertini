@@ -4,10 +4,12 @@
 \alias{print.bertini_posdim}
 \title{Printing Positive-Dimensional Bertini Solution Sets}
 \usage{
-\method{print}{bertini_posdim}(x)
+\method{print}{bertini_posdim}(x, ...)
 }
 \arguments{
 \item{x}{an object of class bertini_posdim}
+
+\item{...}{additional parameters}
 }
 \value{
 Invisible string of the printed object.

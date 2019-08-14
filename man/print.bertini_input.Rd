@@ -4,12 +4,14 @@
 \alias{print.bertini_input}
 \title{Pretty Printing of Bertini_Input Objects}
 \usage{
-\method{print}{bertini_input}(x, silent = FALSE)
+\method{print}{bertini_input}(x, silent = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class bertini_input}
 
 \item{silent}{logical; if TRUE, suppresses output}
+
+\item{...}{additional parameters}
 }
 \value{
 Invisible string of the printed object.

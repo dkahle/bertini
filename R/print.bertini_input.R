@@ -5,8 +5,10 @@
 #'
 #' @param x an object of class bertini_input
 #' @param silent logical; if TRUE, suppresses output
+#' @param ... additional parameters
 #'
 #' @return Invisible string of the printed object.
+#' @usage \method{print}{bertini_input}(x, silent = FALSE, ...)
 #' @export
 #'
 #' @examples
@@ -16,7 +18,7 @@
 #' bertini_input(mp(c("x^2 + y^2 - 1", "x - y")))
 #'
 #' }
-print.bertini_input <- function(x, silent = FALSE) {
+print.bertini_input <- function(x, silent = FALSE, ...) {
 
   stopifnot(is.bertini_input(x))
 

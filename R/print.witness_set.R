@@ -1,7 +1,8 @@
 #' Printing A Witness_Set Object
 #'
 #' @param x an object of class witness_set
-#' @usage \method{print}{witness_set}(x)
+#' @param ... additional parameters
+#' @usage \method{print}{witness_set}(x, ...)
 #' @return Invisible string of the printed object.
 #'
 #' @export
@@ -19,7 +20,7 @@
 #' # print the witness set for all components in dimension 1
 #' witness_set <- witness_set_print(out, 1, -2)
 #' print(witness_set)
-print.witness_set <- function(x) {
+print.witness_set <- function(x, ...) {
 
   stopifnot(is.witness_set(x))
 

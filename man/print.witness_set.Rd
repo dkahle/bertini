@@ -4,10 +4,12 @@
 \alias{print.witness_set}
 \title{Printing A Witness_Set Object}
 \usage{
-\method{print}{witness_set}(x)
+\method{print}{witness_set}(x, ...)
 }
 \arguments{
 \item{x}{an object of class witness_set}
+
+\item{...}{additional parameters}
 }
 \value{
 Invisible string of the printed object.

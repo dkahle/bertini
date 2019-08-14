@@ -15,7 +15,8 @@ Imports:
   glue,
   magrittr,
   purrr,
-  usethis
+  usethis,
+  rlang
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

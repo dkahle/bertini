@@ -7,8 +7,9 @@
 #' and the Decomposition by Degree.
 #'
 #' @param x an object of class bertini_posdim
+#' @param ... additional parameters
 #' @return Invisible string of the printed object.
-#' @usage \method{print}{bertini_posdim}(x)
+#' @usage \method{print}{bertini_posdim}(x, ...)
 #' @export
 #'
 #' @examples
@@ -43,7 +44,7 @@
 
 
 
-print.bertini_posdim <- function(x) {
+print.bertini_posdim <- function(x, ...) {
 
   stopifnot(is.bertini_posdim(x))
 
