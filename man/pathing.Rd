@@ -34,11 +34,12 @@ your ~/.Renviron file. It should look something like
 
 \code{BERTINI=/Applications/latte/bin}
 
-You can set this permanently with \code{\link[=edit_r_environ]{edit_r_environ()}}.
+You can set this permanently with \code{\link[=edit_r_environ]{edit_r_environ()}}. Note that absolute
+paths should be specified, not relative paths, e.g. don't use ~/path/to/exe.
 
-You can change this for the current session using \code{\link[=set_bertini_path]{set_bertini_path()}},
-which accepts a character string or, if missing, uses \code{\link[=file.choose]{file.choose()}} to let
-you interactively; you just select an arbitrary executable.
+You can change this for the current session using \code{\link[=set_bertini_path]{set_bertini_path()}}, which
+accepts a character string or, if missing, uses \code{\link[=file.choose]{file.choose()}} to let you
+interactively; you just select an arbitrary executable.
 }
 \examples{
 

@@ -10,11 +10,12 @@
 #'
 #' \code{BERTINI=/Applications/latte/bin}
 #'
-#' You can set this permanently with [edit_r_environ()].
+#' You can set this permanently with [edit_r_environ()]. Note that absolute
+#' paths should be specified, not relative paths, e.g. don't use ~/path/to/exe.
 #'
-#' You can change this for the current session using [set_bertini_path()],
-#' which accepts a character string or, if missing, uses [file.choose()] to let
-#' you interactively; you just select an arbitrary executable.
+#' You can change this for the current session using [set_bertini_path()], which
+#' accepts a character string or, if missing, uses [file.choose()] to let you
+#' interactively; you just select an arbitrary executable.
 #'
 #' @param path A character string, the path to theh bertini executable
 #' @return A logical(1) or character(1) containing the path.
