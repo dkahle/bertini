@@ -1,23 +1,30 @@
-#' Add, Modify, or Remove Configuration(s) to a Bertini_Input Object
+#' Add, Modify, or Remove Configuration
 #'
 #' Add to, modify, and/or remove a configuration or multiple configurations in a
 #' bertini_input object. This function is a thin wrapper of the
-#' \code{list_modify} function in the purrr package. Therefore, you can
-#' use \code{zap} to remove a configuration.
+#' [purrr::list_modify()] function in the purrr package. Therefore, you can use
+#' [rlang::zap()] to remove a configuration.
 #'
 #' @param x a bertini_input object
 #' @param ... configurations to be added or modified.
-#'
-#' @return the bertini_input object with the added, modified,
-#'  or removed configurations
-#' @export
-#'
+#' @return the bertini_input object with the added, modified, or removed
+#'   configurations
+#' @name modify-config
 #' @examples
 #'
-#' struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y")))
+#' (struct <- bertini_input(mp(c("x^2 + y^2 - 1","x - y"))))
 #'
 #' modify_config(struct, precision = 124)
+#'
+#'
+#'
 
+
+
+
+
+#' @rdname modify-config
+#' @export
 modify_config <- function(x, ...) {
 
   # stop if not a bertini_input object
@@ -33,6 +40,9 @@ modify_config <- function(x, ...) {
     stop("not all configuration names are valid; See valid_congurations")
   }
 
+  # add configurations
   x$config_block <- list_modify(x$config_block, !!!configs)
+
+  # return
   x
 }
