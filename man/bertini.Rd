@@ -7,14 +7,20 @@
 \alias{bertini-package}
 \title{R Interface to Bertini}
 \usage{
-bertini(code, dir = tempdir(), quiet = TRUE)
+bertini(code, dir = tempdir(), quiet = TRUE, output = c("zero_dim",
+  "pos_dim"), parameter_homotopy = FALSE)
 }
 \arguments{
-\item{code}{Bertini code as either a character string}
+\item{code}{Bertini code as either a character string, or bertini_input object;
+see examples}
 
 \item{dir}{directory to place the files in, without an ending /}
 
 \item{quiet}{show bertini output}
+
+\item{output}{the type of output expected (zero-dimensional or positive-dimensional)}
+
+\item{parameter_homotopy}{logical indicating if the run is a parameter homotopy.}
 }
 \value{
 an object of class bertini
@@ -106,14 +112,15 @@ INPUT
   f2 = x^3-z;
 END;
 "
-out <- bertini(code)
-bertini(code, quiet = FALSE) # print broken here
+bertini(code, output = "pos_dim")
 
 
 
+# using a bertini_input object
 
-
-
+polys <- mp(c("x^2 + y^2 - 1", "x - y"))
+struct <- bertini_input(polys)
+bertini(struct)
 
 
 
