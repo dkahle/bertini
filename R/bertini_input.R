@@ -59,7 +59,6 @@ bertini_input <- function(mpolyList,
   stopifnot(is.mpolyList(mpolyList))
 
   # sort out variables
-  # sort out variables
   vars <- mpoly::vars(mpolyList)
 
   if(!missing(varorder) && !all(sort(vars) == sort(varorder))) stop(
