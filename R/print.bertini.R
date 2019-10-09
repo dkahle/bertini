@@ -41,7 +41,8 @@ print.bertini <- function(x, digits = 3, ...){
 
   ## print positive dimensional solution
   if (all(c(nFSolns, nNsSolns, nSSolns, nRSolns) == 0L)) {
-    message("Positive dimensional solution; print method not yet implemented.")
+    message("Positive dimensional solution or error at the Bertini level.
+            If expecting a positive-dimensional solution set, use output = 'pos_dim'.")
     return(invisible())
   }
 

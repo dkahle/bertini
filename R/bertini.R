@@ -9,6 +9,8 @@
 #' @param quiet show bertini output
 #' @param output the type of output expected (zero-dimensional or positive-dimensional)
 #' @param parameter_homotopy logical indicating if the run is a parameter homotopy.
+#' @param start_points an optional specification of the starting system in a list of points.
+#'  This is usually only specified for user-defined homotopies.
 #' @return an object of class bertini
 #' @export bertini
 #' @examples
@@ -116,8 +118,8 @@ bertini <- function(code,
                     dir = tempdir(),
                     quiet = TRUE,
                     output = c("zero_dim", "pos_dim"),
-                    parameter_homotopy = FALSE){
-
+                    parameter_homotopy = FALSE,
+                    start_points = list()){
 
   output <- match.arg(output)
 
@@ -133,6 +135,18 @@ bertini <- function(code,
 
   # make bertini file
   write_bertini(code, where = scratch_dir)
+
+  # if start_points exist, parse and write to file
+  if(length(start_points) > 0) {
+
+    # parse
+    points <- lapply(start_points, function(x) glue_collapse(glue("{Re(x)} {Im(x)}"), sep = "\n"))
+    start_file <- glue("{length(start_points)} \n\n{glue_collapse(points, sep = '\n\n')}")
+
+    # make
+    writeLines(start_file, file.path(scratch_dir, "start"))
+
+  }
 
 
   # switch to temporary directory, run bertini
@@ -172,7 +186,7 @@ bertini <- function(code,
    #if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
    #if("start" %in% files) out$start <- parse_bertini_start(out)
     if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
-
+    if("real_solutions" %in% files) out$real_solutions <- parse_bertini_real_solutions(out)
 
     # add code and directory
     out$raw_output <- raw_output
@@ -524,4 +538,27 @@ parse_bertini_failed_paths <- function(rawOutput){
   ) return(FALSE)
 
   rawOutput$failed_paths
+}
+
+parse_bertini_real_solutions <- function(rawOutput){
+
+  # check for no finite solutions
+  if(str_sub(rawOutput$real_solutions[1], 1, 1) == "0") return(FALSE)
+
+  # get variables
+  vars <- str_replace(rawOutput$main_data[2], "Variables:  ", "")
+  vars <- str_split(vars, " ")[[1]]
+  p <- length(vars)
+
+  # grab output, format and return
+  rSolns <- rawOutput$real_solutions
+  rSolns <- rSolns[-c(1,2)]
+  rSolns <- rSolns[-length(rSolns)]
+
+  rSolns <- strsplit(rSolns, " ")[nchar(rSolns) > 0]
+  rSolns <- vapply(rSolns, function(x) as.numeric(x[1]), numeric(1))
+  rSolns <- matrix(rSolns, ncol = p, byrow = TRUE)
+  colnames(rSolns) <- vars
+
+  rSolns
 }
