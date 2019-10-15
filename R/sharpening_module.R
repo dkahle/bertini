@@ -10,7 +10,30 @@
 #'
 #' @examples
 #'
-#' # Examples coming soon!
+#' if(has_bertini()){
+#'
+#' # initial bertini run on an example that has a high condition number
+#' polys <- c("y - x^10", "y - 1e-10")
+#' out <- bertini(bertini_input(polys))
+#' out
+#'
+#' # run the sharpening module to use the postprocessor after
+#' # adjusting the condition number threshold (Selection 4).
+#' # Notice that the singular solutions changed to nonsingular solutions.
+#'
+#' sharpening_module(out, condnumthreshold = 1e12)
+#'
+#'
+#'
+#' # root sharpening after a homotopy
+#' polys <- c("x^2 - y^2 - 1", "x - y^2 - 1")
+#' out <- bertini(bertini_input(polys))
+#' print(out, digits = 20)
+#'
+#' # sharpen roots. Select option 1.
+#' sharpen_out <- sharpening_module(out, sharpendigits = 20)
+#' print(out, digits = 20)
+#' }
 sharpening_module <- function(out, dir = tempdir(), quiet = TRUE, ...){
 
   # stop if not a bertini object
@@ -79,7 +102,7 @@ sharpening_module <- function(out, dir = tempdir(), quiet = TRUE, ...){
 
   # class and out
   class(out) <- "bertini"
-  print(out)
+  out
 }
 
 
