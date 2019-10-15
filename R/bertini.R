@@ -183,8 +183,8 @@ bertini <- function(code,
     if("singular_solutions" %in% files) out$singular_solutions <- parse_bertini_singular_solutions(out)
     if("real_finite_solutions" %in% files) out$real_finite_solutions <- parse_bertini_real_finite_solutions(out)
     if("raw_solutions" %in% files) out$raw_solutions <- parse_bertini_raw_solutions(out)
-   #if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
-   #if("start" %in% files) out$start <- parse_bertini_start(out)
+    if("midpath_data" %in% files) out$midpath_data <- parse_bertini_midpath_data(out)
+    if("start" %in% files) out$start <- parse_bertini_start(out)
     if("failed_paths" %in% files) out$failed_paths <- parse_bertini_failed_paths(out)
     if("real_solutions" %in% files) out$real_solutions <- parse_bertini_real_solutions(out)
 
@@ -475,6 +475,11 @@ parse_bertini_midpath_data <- function(rawOutput){
     complex(1, x[1], x[2])
   }, complex(1))
 
+  if(length(mdpthPts) %% p != 0) {
+    vars <- vars[-p]
+    p <- p - 1
+  }
+
   mdpthPts <- matrix(mdpthPts, ncol = p, byrow = TRUE)
   colnames(mdpthPts) <- vars
 
@@ -493,7 +498,6 @@ parse_bertini_midpath_data <- function(rawOutput){
 
 parse_bertini_start <- function(rawOutput){
 
-browser()
   # check for no finite solutions
   if(
     length(rawOutput$start) == 1 &&
@@ -517,6 +521,11 @@ browser()
     x <- as.numeric(x)
     complex(1, x[1], x[2])
   }, complex(1))
+
+  if(length(startPts) %% p != 0) {
+    vars <- vars[-p]
+    p <- p - 1
+  }
 
   startPts <- matrix(startPts, ncol = p, byrow = TRUE)
   colnames(startPts) <- vars
