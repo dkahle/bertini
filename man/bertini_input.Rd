@@ -4,11 +4,11 @@
 \alias{bertini_input}
 \title{Base Bertini_Input Creation}
 \usage{
-bertini_input(mpolyList, varorder, definitions = list(),
+bertini_input(polys, varorder, definitions = list(),
   configurations = list(), subfunctions = list())
 }
 \arguments{
-\item{mpolyList}{system of polynomials as either a character vector or mpolyList.}
+\item{polys}{system of polynomials as either a character vector or mpolyList.}
 
 \item{varorder}{an optional specification of the variable order.}
 
@@ -32,7 +32,7 @@ A bertini_input object is a convenient way to store the information needed in
 a Bertini input file. By default, \code{bertini_input} will create an
 object that will be parsed as a total-degree homotopy in Bertini by grouping
 all variables present, either in \code{varorder} or infered from
-\code{mpolyList}, together in one variable group.
+\code{polys}, together in one variable group.
 }
 \examples{
 
@@ -55,9 +55,9 @@ bertini_input(polys, definitions = definitions,
 
 # subfunction example from Bertini
 polys <- mp(c("S*T*(x-2)", "S*U*(y-2)", "S*T*U*(z-2)"))
-subfunctions <- list("S" = "x^2 + y^2 + z^2 - 1",
-                     "T" = "y - x^2",
-                     "U" = "x*y - z")
+subfunctions <- list(S = "x^2 + y^2 + z^2 - 1",
+                     T = "y - x^2",
+                     U = "x*y - z")
 bertini_input(polys, subfunctions = subfunctions)
 }
 }

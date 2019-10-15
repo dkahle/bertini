@@ -8,7 +8,7 @@
 \title{R Interface to Bertini}
 \usage{
 bertini(code, dir = tempdir(), quiet = TRUE, output = c("zero_dim",
-  "pos_dim"), parameter_homotopy = FALSE)
+  "pos_dim"), parameter_homotopy = FALSE, start_points = list())
 }
 \arguments{
 \item{code}{Bertini code as either a character string, or bertini_input object;
@@ -21,6 +21,9 @@ see examples}
 \item{output}{the type of output expected (zero-dimensional or positive-dimensional)}
 
 \item{parameter_homotopy}{logical indicating if the run is a parameter homotopy.}
+
+\item{start_points}{an optional specification of the starting system in a list of points.
+This is usually only specified for user-defined homotopies.}
 }
 \value{
 an object of class bertini

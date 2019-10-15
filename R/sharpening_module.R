@@ -5,10 +5,12 @@
 #' @param quiet show bertini output
 #' @param ... additional configuration arguments to be changed.
 #'
-#' @return
+#' @return an object of class bertini
 #' @export
 #'
 #' @examples
+#'
+#' # Examples coming soon!
 sharpening_module <- function(out, dir = tempdir(), quiet = TRUE, ...){
 
   # stop if not a bertini object
