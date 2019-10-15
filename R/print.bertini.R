@@ -33,6 +33,15 @@ print.bertini <- function(x, digits = 3, ...){
 
   p <- length(vars)
 
+  ## trying to handle user-defined homotopies
+  if(!"finite_solutions" %in% names(x)) {
+    x$finite_solutions <- x$raw_solutions
+  }
+  if(!"real_finite_solutions" %in% names(x) && "real_solutions" %in% names(x)) {
+    x$real_finite_solutions <- x$real_solutions
+  }
+
+
   ## determine number of solutions and kinds
   nFSolns  <- nrow(x$finite_solutions);      if(is.null(nFSolns))  nFSolns <- 0L
   nNsSolns <- nrow(x$nonsingular_solutions); if(is.null(nNsSolns)) nNsSolns <- 0L

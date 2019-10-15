@@ -55,7 +55,7 @@ bertini_input <- function(polys,
                           ) {
 
   if(is.character(polys)) polys <- mp(polys)
-  if(is.mpoly(polys)) polys <- structure(list(polys), class = "polys")
+  if(is.mpoly(polys)) polys <- mpolyList(polys)
   stopifnot(is.mpolyList(polys))
 
   # sort out variables
