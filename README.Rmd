@@ -28,7 +28,7 @@ __bertini__ is an R package that provides methods and data structures for [numer
 It is still experimental, but the core functionality in the zero-dimensional case is quite stable.
 
 
-_Note: the following assumes you have [Bertini](https://bertini.nd.edu) and bertini recognizes its path._
+_Note: the following assumes you have [Bertini](https://bertini.nd.edu) and bertini recognizes its path. To do this properly, see `?set_bertini_path()`._
 
 ```{r load}
 library("bertini")
