@@ -86,9 +86,7 @@ parameter_homotopy <- function(input,
   struct <- modify_config(struct, parameterhomotopy = 2)
 
   function(data) {
-    real <- Re(data)
-    imaginary <- Im(data)
-    final_data <- glue("{real} {imaginary};")
+    final_data <- glue("{Re(data)} {Im(data)};")
     final_params <- glue("{length(data)} \n\n{glue_collapse(final_data, sep = '\n')}")
     writeLines(final_params, file.path(scratch_dir, "final_parameters"))
 

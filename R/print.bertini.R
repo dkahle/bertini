@@ -33,6 +33,15 @@ print.bertini <- function(x, digits = 3, ...){
 
   p <- length(vars)
 
+  ## trying to handle user-defined homotopies
+  if(!"finite_solutions" %in% names(x)) {
+    x$finite_solutions <- x$raw_solutions
+  }
+  if(!"real_finite_solutions" %in% names(x) && "real_solutions" %in% names(x)) {
+    x$real_finite_solutions <- x$real_solutions
+  }
+
+
   ## determine number of solutions and kinds
   nFSolns  <- nrow(x$finite_solutions);      if(is.null(nFSolns))  nFSolns <- 0L
   nNsSolns <- nrow(x$nonsingular_solutions); if(is.null(nNsSolns)) nNsSolns <- 0L
@@ -41,7 +50,8 @@ print.bertini <- function(x, digits = 3, ...){
 
   ## print positive dimensional solution
   if (all(c(nFSolns, nNsSolns, nSSolns, nRSolns) == 0L)) {
-    message("Positive dimensional solution; print method not yet implemented.")
+    message("Positive dimensional solution or error at the Bertini level.
+            If expecting a positive-dimensional solution set, use output = 'pos_dim'.")
     return(invisible())
   }
 

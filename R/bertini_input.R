@@ -5,10 +5,10 @@
 #' a Bertini input file. By default, \code{bertini_input} will create an
 #' object that will be parsed as a total-degree homotopy in Bertini by grouping
 #' all variables present, either in \code{varorder} or infered from
-#' \code{mpolyList}, together in one variable group.
+#' \code{polys}, together in one variable group.
 #'
 #'
-#' @param mpolyList system of polynomials as either a character vector or mpolyList.
+#' @param polys system of polynomials as either a character vector or mpolyList.
 #' @param varorder an optional specification of the variable order.
 #' @param definitions an optional named list of the definitions to be given to
 #'    Bertini. The definitions name all arguments used in the polynomial and
@@ -42,25 +42,24 @@
 #'
 #' # subfunction example from Bertini
 #' polys <- mp(c("S*T*(x-2)", "S*U*(y-2)", "S*T*U*(z-2)"))
-#' subfunctions <- list("S" = "x^2 + y^2 + z^2 - 1",
-#'                      "T" = "y - x^2",
-#'                      "U" = "x*y - z")
+#' subfunctions <- list(S = "x^2 + y^2 + z^2 - 1",
+#'                      T = "y - x^2",
+#'                      U = "x*y - z")
 #' bertini_input(polys, subfunctions = subfunctions)
 #' }
-bertini_input <- function(mpolyList,
+bertini_input <- function(polys,
                           varorder,
                           definitions = list(),
                           configurations = list(),
                           subfunctions = list()
                           ) {
 
-  if(is.character(mpolyList)) mpolyList <- mp(mpolyList)
-  if(is.mpoly(mpolyList)) mpolyList <- structure(list(mpolyList), class = "mpolyList")
-  stopifnot(is.mpolyList(mpolyList))
+  if(is.character(polys)) polys <- mp(polys)
+  if(is.mpoly(polys)) polys <- mpolyList(polys)
+  stopifnot(is.mpolyList(polys))
 
   # sort out variables
-  # sort out variables
-  vars <- mpoly::vars(mpolyList)
+  vars <- mpoly::vars(polys)
 
   if(!missing(varorder) && !all(sort(vars) == sort(varorder))) stop(
     "If varorder is provided, it must contain all of the variables.",
@@ -77,7 +76,7 @@ bertini_input <- function(mpolyList,
 
 
   # make function names
-  fun_names <- str_c("f", 1:length(mpolyList))
+  fun_names <- str_c("f", 1:length(polys))
 
   if(length(definitions) == 0) {
     defs_block <- list(
@@ -91,9 +90,9 @@ bertini_input <- function(mpolyList,
     }
 
     # check if all variables are in the definitions
-    new_defs <- definitions[!names(definitions) == "function"]
+    new_defs <- definitions[!(names(definitions) == "function" | names(definitions) == "pathvariable")]
 
-    if(!all(unlist(new_defs) %in% vars)) {
+    if(!all(unlist(new_defs) %in% vars | unlist(new_defs) %in% names(subfunctions))) {
       stop("The definitions block must contain all variables")
     }
 
@@ -108,7 +107,7 @@ bertini_input <- function(mpolyList,
     config_block = configurations,
     defs_block = defs_block,
     subfun_block = subfunctions,
-    funs_block = mpolyList
+    funs_block = polys
   )
 
   struct <- structure(struct, class = "bertini_input")
