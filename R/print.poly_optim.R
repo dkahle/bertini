@@ -104,8 +104,8 @@ print.poly_optim <- function(x, lagrange = FALSE, digits = 3, ...){
     #  "(A global ", ifelse(nGlobalMax == 1, "maximum.)", "minimum.)")
     #))
   } else {
-    maxTerm <- `if`(nGlobalMax == 1, "um", "a")
-    minTerm <- `if`(nGlobalMin == 1, "um", "a")
+    maxTerm <- if (nGlobalMax == 1) "um" else "a"
+    minTerm <- if (nGlobalMin == 1) "um" else "a"
     cat(paste0(nDistinctSolns, " critical values ", tuple, " found.  "))
     if(optimizationType == "constrained") cat(paste0(
       "(",
