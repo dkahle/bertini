@@ -4,10 +4,16 @@
 \alias{parameter_homotopy}
 \title{Parameter Homotopies}
 \usage{
-parameter_homotopy(input, parameters, varorder,
-  precomputed_solutions = NULL, dir = tempdir(),
-  definitions = list(), configurations = list(),
-  subfunctions = list())
+parameter_homotopy(
+  input,
+  parameters,
+  varorder,
+  precomputed_solutions = NULL,
+  dir = tempdir(),
+  definitions = list(),
+  configurations = list(),
+  subfunctions = list()
+)
 }
 \arguments{
 \item{input}{system of polynomials as either a character vector,

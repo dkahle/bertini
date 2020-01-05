@@ -4,11 +4,15 @@
 \name{bertini}
 \alias{bertini}
 \alias{package-bertini}
-\alias{bertini-package}
 \title{R Interface to Bertini}
 \usage{
-bertini(code, dir = tempdir(), quiet = TRUE, output = c("zero_dim",
-  "pos_dim"), parameter_homotopy = FALSE)
+bertini(
+  code,
+  dir = tempdir(),
+  quiet = TRUE,
+  output = c("zero_dim", "pos_dim"),
+  parameter_homotopy = FALSE
+)
 }
 \arguments{
 \item{code}{Bertini code as either a character string, or bertini_input object;
