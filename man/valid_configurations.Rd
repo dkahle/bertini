@@ -4,7 +4,9 @@
 \name{valid_configurations}
 \alias{valid_configurations}
 \title{This is a list of valid configurations}
-\format{An object of class \code{character} of length 70.}
+\format{
+An object of class \code{character} of length 70.
+}
 \usage{
 valid_configurations
 }

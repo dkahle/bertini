@@ -4,7 +4,9 @@
 \name{valid_def_names}
 \alias{valid_def_names}
 \title{This is a list of valid definition names}
-\format{An object of class \code{character} of length 9.}
+\format{
+An object of class \code{character} of length 9.
+}
 \usage{
 valid_def_names
 }
