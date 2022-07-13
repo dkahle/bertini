@@ -20,7 +20,7 @@ Imports:
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 SystemRequirements:
     Bertini (https://bertini.nd.edu)
